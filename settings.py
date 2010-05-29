@@ -80,3 +80,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
 )
+
+#for using email addresses as usernames
+AUTHENTICATION_BACKENDS = (
+    'step2.email_auth.EmailBackend',
+ )
