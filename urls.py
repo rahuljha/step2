@@ -6,6 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        (r'^admin/', include(admin.site.urls)),
+                       (r'^forum/', include('forum.urls')),
     # Example:
     # (r'^step2/', include('step2.foo.urls')),
 

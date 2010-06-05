@@ -80,6 +80,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'forum',
+    'project',
+    'tagging',
 )
 
 #for using email addresses as usernames
