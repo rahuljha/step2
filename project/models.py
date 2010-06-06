@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from south.modelsinspector import add_introspection_rules 
+from tagging.fields import TagField
+
+
+add_introspection_rules = ([], ["^tagging_autocomplete\.models\.TagAutocompleteField"]) 
 
 class Project(models.Model):
     name = models.CharField(max_length=30)
@@ -14,6 +18,10 @@ class Project(models.Model):
                                                     ), 
                              default='I')
     posted_on = models.DateField(null=True)
+    tags = TagField(null=True)
 
     def __unicode__(self):
         return self.name
+
+
+
