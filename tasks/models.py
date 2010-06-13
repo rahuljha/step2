@@ -24,7 +24,7 @@ class Task(models.Model):
     def __unicode__(self):
         return self.title
 
-    # Auto-set the item creation / completed date
+    # Auto-set the task creation / completed date
     def save(self):
         # Set datetime on initial item save
         if not self.id:
