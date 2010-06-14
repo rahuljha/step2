@@ -82,7 +82,6 @@ INSTALLED_APPS = (
     'forum',
     'project',
     'tagging',
-    'tasks',
 )
 
 #for using email addresses as usernames
