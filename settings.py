@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'south',
     'forum',
     'project',
+    'member',
     'tagging',
 )
 
