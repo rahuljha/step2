@@ -1,0 +1,16 @@
+
+body {
+    font-family: Helvetica, Arial, Sans;
+    width: 960px;
+    margin: auto;
+}
+
+div#header {
+    height: 100px;
+    padding: 10px 0;
+}
+
+img#logo {
+    height: 100px;
+    float: left;
+}

@@ -45,7 +45,7 @@ MEDIA_URL = ''
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin_media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'rd73dit$(e5roefr$!yzehci2-*^r_oj#li93vx6=qfm+dlyet'
@@ -69,7 +69,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '{}/step2/templates',   #can't we make this machine independent?
+    '/Users/rahuljha/source_code/step2/templates',   #can't we make this machine independent?
 )
 
 INSTALLED_APPS = (
