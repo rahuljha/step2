@@ -10,9 +10,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'step2_django'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'rahuljha'             # Not used with sqlite3.
-DATABASE_PASSWORD = '222486'         # Not used with sqlite3.
+DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+DATABASE_USER = ''            # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -45,7 +45,7 @@ MEDIA_URL = ''
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin_media/'
+ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'rd73dit$(e5roefr$!yzehci2-*^r_oj#li93vx6=qfm+dlyet'

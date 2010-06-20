@@ -14,10 +14,11 @@ project_resource = Collection(
 )
 
 urlpatterns = patterns('',
+                       (r'^$', direct_to_template, {'template': 'about.html'}),
+                       (r'^about/$', direct_to_template, {'template': 'about.html'}),
                        (r'^admin/', include(admin.site.urls)),
                        (r'^project/', include('project.urls')),
                        (r'^forum/', include('forum.urls')),
-                       (r'^about/$', direct_to_template, {'template': 'about.html'}),
                        (r'^media/(?P<path>.*)$', 'django.views.static.serve',
                         {'document_root': '/home/rahuljha/step2/media/'}),
                        #REST interface
