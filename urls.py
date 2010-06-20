@@ -19,7 +19,7 @@ urlpatterns = patterns('',
                        (r'^forum/', include('forum.urls')),
                        (r'^about/$', direct_to_template, {'template': 'about.html'}),
                        (r'^media/(?P<path>.*)$', 'django.views.static.serve',
-                        {'document_root': '/Users/rahuljha/source_code/step2/media/'}),
+                        {'document_root': '/home/rahuljha/step2/media/'}),
                        #REST interface
                        (r'^json/project/(.*?)/?$', project_resource),
 )
