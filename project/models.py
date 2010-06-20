@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
@@ -27,11 +29,6 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self):
-        if not self.id:
-            self.created_date = datetime.datetime.now()
-
-        super(Item, self).save()
 
 class Task(models.Model):
 
@@ -57,16 +54,6 @@ class Task(models.Model):
     def __unicode__(self):
         return self.title
 
-    # Auto-set the task creation / completed date
-    def save(self):
-        # Set datetime on initial item save
-        if not self.id:
-            self.created_date = datetime.datetime.now()
-
-        # If task is being marked complete, set the completed_date
-        if self.completed :
-            self.completed_date = datetime.datetime.now()
-        super(Item, self).save()
 
     class Meta:
         ordering = ["priority"]

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title%}Projects{% endblock %}
+{% block maincontent %}
+<ul>
+        {% for project in object_list %}
+            <li><a href="view/{{ project.id }}">{{ project.name }}</a></li>
+        {% endfor %}
+</ul>
+{% endblock %}
