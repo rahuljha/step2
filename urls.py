@@ -13,6 +13,7 @@ project_resource = Collection(
     responder = JSONResponder(),
 )
 
+
 urlpatterns = patterns('',
                        (r'^$', direct_to_template, {'template': 'about.html'}),
                        (r'^about/$', direct_to_template, {'template': 'about.html'}),

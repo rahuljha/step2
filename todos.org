@@ -1,0 +1,6 @@
+* TODO a create view for a project
+* TODO a create view for a task
+* TODO abstracting out the code which create dictionaries for project and task
+* TODO only members should be allowed to update a project/task
+* TODO object_lists should be paginated
+
