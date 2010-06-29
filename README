@@ -1,5 +1,4 @@
 * To use
   - create a mysql database, and a user with privleges on that database.
-  - add these values to settings.py for DB settings
-
-
+  - update the setting.py file with the new DB settings
+  - modify WORKSPACE_DIR to point to your local git copy of step2 (the path shouldn't contain "step2")

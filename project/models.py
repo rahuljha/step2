@@ -1,28 +1,25 @@
 import datetime
-
 from django.db import models
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib import admin
-
 from south.modelsinspector import add_introspection_rules
-
 from tagging.fields import TagField
 from forum.models import Forum
 
 add_introspection_rules = ([], ["tagging_autocomplete\.models\.TagAutocompleteField"])
 
-class Project(models.Model):
+project_state_choices = (('I', 'Incubation'),
+                         ('L', 'Looking for Resources'),
+                         ('W', 'In Progress'),
+                         ('M', 'Maintainence'),)
 
+class Project(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=500)
     members = models.ManyToManyField(User)
     forum = models.ForeignKey(Forum, unique=True)
-    state = models.CharField(max_length=1,
-                             choices = (('I', 'Incubation'),
-                                        ('L', 'Looking for Resources'),
-                                        ('W', 'In Progress'),
-                                        ('M', 'Maintainence'),),
-                             default='I')
+    state = models.CharField(max_length=1, choices=project_state_choices, default='I')
     created_date = models.DateField();
     tags = TagField(blank=True, null=True)
 
@@ -30,14 +27,13 @@ class Project(models.Model):
         return self.name
 
 
+task_state_choices = (('O', 'open'), ('C', 'closed'))
+
 class Task(models.Model):
-
     title = models.CharField(max_length=140)
-
     created_date = models.DateField()
     due_date = models.DateField(blank=True,null=True,)
-
-    completed = models.BooleanField()
+    state = models.CharField(max_length=1, choices=task_state_choices, default='O')
     completed_date = models.DateField(blank=True,null=True)
     created_by = models.ForeignKey(User, related_name='tasks_created')
     assigned_to = models.ForeignKey(User, related_name='tasks_assigned')
@@ -54,7 +50,16 @@ class Task(models.Model):
     def __unicode__(self):
         return self.title
 
-
     class Meta:
         ordering = ["priority"]
+
+
+# class ProjectForm(ModelForm):
+#     class Meta:
+#         model = Project
+
+
+# class TaskForm(ModelForm):
+#     class Meta:
+#         model = Task
 

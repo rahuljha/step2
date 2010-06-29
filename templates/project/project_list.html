@@ -3,8 +3,8 @@
 {% block title%}Projects{% endblock %}
 {% block maincontent %}
 <ul>
-        {% for project in object_list %}
-            <li><a href="view/{{ project.id }}">{{ project.name }}</a></li>
+        {% for project in projects_list %}
+            <li><a href="{{ project.id }}">{{ project.name }}</a></li>
         {% endfor %}
 </ul>
 {% endblock %}
