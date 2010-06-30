@@ -4,4 +4,6 @@
 * TODO only members should be allowed to update a project/task :authentication:
 * TODO explore openID                                     :low_priority:misc:
 * TODO object_lists should be paginated (when viewing the UI in the browse, not while sending a REST response) :generic_views:
+* TODO Create the general update and email notification mechanism
+
 
