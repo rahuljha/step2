@@ -6,11 +6,10 @@ from tagging.fields import TagField
 add_introspection_rules = ([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
 class Member(models.Model):
-    Role    = models.CharField(max_length=1,
-                            choices = (('S', 'Student'),
-                                       ('I', 'Professionals'),),
-                            default='I')
-    Profile = models.TextField(max_length=500)
-    AOI     = models.TextField(max_length=300)
+    role    = models.CharField(max_length=1,
+                               choices = (('S', 'Student'),('I', 'Professionals')),
+                               default='I')
+    profile = models.TextField(max_length=500)
+    aoi     = TagField(blank=True, null=True)
     user    = models.ForeignKey(User, unique=True)  ## each member is an unique user
 

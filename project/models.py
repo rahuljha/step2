@@ -38,7 +38,6 @@ class Task(models.Model):
     created_by = models.ForeignKey(User, related_name='tasks_created')
     assigned_to = models.ForeignKey(User, related_name='tasks_assigned')
     belongs_to_project = models.ForeignKey(Project)
-    members = models.ManyToManyField(User)
     description = models.TextField(blank=True)
     priority = models.PositiveIntegerField(max_length=3)
 
@@ -52,14 +51,3 @@ class Task(models.Model):
 
     class Meta:
         ordering = ["priority"]
-
-
-# class ProjectForm(ModelForm):
-#     class Meta:
-#         model = Project
-
-
-# class TaskForm(ModelForm):
-#     class Meta:
-#         model = Task
-

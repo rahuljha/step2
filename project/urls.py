@@ -38,12 +38,13 @@ task_detail_info = {
 task_edit_info = {
     'model': Task,
     'template_name': "task/task_edit.html",
-    'post_save_redirect': "task/%(id)s/",
+    'post_save_redirect': "tasks/",
     'template_object_name' : "task",
 }
 
 task_create_info = {
     'model': Task,
+    'post_save_redirect': "tasks/",
     'template_name': "task/task_create.html",
 }
 
