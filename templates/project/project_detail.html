@@ -1,8 +1,49 @@
 {% extends "base.html" %}
 
 {% block title%}{{project.name}}{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/site_media/css/smoothness/jquery-ui-1.8.2.custom.css" />
+{%endblock%}
 {% block maincontent %}
-<p>Project Name: {{project.name}}</p>
-<p>Project Description: {{project.description}}</p>
-<p>Project State: {{project.state}}</p>
+<h1>Project Name: {{project.name}}</h1>
+<div class="grid_5" id="project_updates">
+  <h3>Project Updates</h3>
+</div>
+<div class="grid_6" id="project_resources">
+  <h3>Project Resources</h3>
+</div>
+<div class="clear"></div>
+<div id="project_tasks" class="grid_12">
+    <h3>Tasks</h3>
+    <div id="task_list"></div>
+</div>
+<div id="project_forum" class="grid_12">
+  <h3>Forum</h3>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/site_media/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/site_media/js/jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript">
+    load_tasks = function() {
+        $.ajax({
+            url: "/api/projects/1/tasks",
+	    type: 'GET',
+            dataType: 'json',
+            timeout: 5000,
+            success: function(tasks) {
+                html = "";
+                for(i=0; i<tasks.length; i++) {
+                    html += "<h3><a href='#'>"+tasks[i]['title']+"</a></h3><div>"+tasks[i]['description']+"</div>";
+                }
+                $('#task_list').html(html).accordion();
+            },
+        });
+    };
+
+    $(document).ready(
+        load_tasks
+    );
+</script>
 {% endblock %}

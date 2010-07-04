@@ -1,18 +1,26 @@
 <html>
 <head>
+<!-- 960.gs css files -->
+<link rel="stylesheet" type="text/css" href="/site_media/css/960.css" />
+<link rel="stylesheet" type="text/css" href="/site_media/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="/site_media/css/text.css" />
+
 <link rel="stylesheet" type="text/css" href="/site_media/css/base.css" />
 {% block stylesheets %}{% endblock %}
 <title>{% block title %}Step2{% endblock %}</title>
 </head>
-<body>
-<div id="header">
+<body class ="container_12">
+<div id="header" class="grid_12">
   <img id="logo" src="/site_media/img/step2_logo.png"/>
 </div>
-<div id="maincontent">
+<div class="clear"></div>
+<div id="maincontent" class="grid_12">
 {% block maincontent %}{% endblock %}
 </div>
-<div id="footer">
+<div class="clear"></div>
+<div id="footer" class="grid_12">
 Powered by Django
 </div>
+{% block javascript %}{% endblock %}
 </body>
 </html>

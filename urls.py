@@ -16,6 +16,6 @@ urlpatterns = patterns('',
                        (r'^admin/', include(admin.site.urls)),
                        (r'^projects/', include('project.urls')),
                        (r'^forum/', include('forum.urls')),
-                       (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + 'step2/site_media/'}),
+                       (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + '/site_media/'}),
                        #REST interface
                        (r'^api/', include('api.urls')))

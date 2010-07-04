@@ -27,7 +27,7 @@ class ProjectHandler(BaseHandler):
 
 class AllTasksHandler(BaseHandler):
     model = Task
-    fields = ('id', 'title')
+    fields = ('id', 'title', 'description')
 
     def read(self, request):
         tasks = Task.objects
@@ -36,7 +36,7 @@ class AllTasksHandler(BaseHandler):
 
 class ProjectTasksHandler(BaseHandler):
     model = Task
-    fields = ('id', 'title')
+    fields = ('id', 'title', 'description')
 
     def read(self, request, id):
         tasks = Task.objects.filter(belongs_to_project=id)
