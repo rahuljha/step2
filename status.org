@@ -1,18 +1,22 @@
 * status
-** TODO a create/edit view for a project                      :generic_views:
-** TODO a create/edit view for a task                         :generic_views:
-** TODO abstracting out the code which create dictionaries for project and task  :miscellaneous:low_priority:
-** TODO only members should be allowed to update a project/task  :authentication:
+** TODO a create/edit view for a project                :generic_views:rahul:
+** TODO a create/edit view for a task                   :generic_views:rahul:
+** TODO abstracting out the code which create dictionaries for project and task :miscellaneous:low_priority:rdsr:
+** DONE authentication semantics for Project's update/create/delete  :authentication:rdsr:
+   CLOSED: [2010-07-07 Wed 11:41]
 ** TODO explore openID                           :low_priority:miscellaneous:
 ** TODO object_lists should be paginated (when viewing the UI in the browse, not while sending a REST response)  :generic_views:
-** TODO application wide authentication mechanism
-** DONE removed 3rd party modules from code base              :miscellaneous:
+** TODO application wide authentication mechanism                    :vigith:
+** DONE removed 3rd party modules from code base         :miscellaneous:rdsr:
   CLOSED: [2010-07-03 Sat 00:32]
   Please run the setup.sh script to install the third party modules
-** DONE json api view for project/task/forum/users           :rest_interface:
+** DONE json api view for project/task/forum/users      :rest_interface:rdsr:
   CLOSED: [2010-07-03 Sat 00:27]
   + currently only read is supported
   + should create be supported?
 ** TODO Create the general update and email notification mechanism  :authentication:
-** DONE removed members field from Task
+** DONE removed members field from Task                  :rdsr:miscellaneous:
    CLOSED: [2010-07-03 Sat 02:29]
+** TODO examples folder to contain examples for various functionalities
+*** DONE rest-api examplse                                             :rdsr:
+    CLOSED: [2010-07-07 Wed 11:44]

@@ -17,10 +17,12 @@ project_state_choices = (('I', 'Incubation'),
 class Project(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=500)
+    owner = models.ForeignKey(User, related_name='projects_owner')
+    created_by = models.ForeignKey(User, related_name='projects_created')
     members = models.ManyToManyField(User)
     forum = models.ForeignKey(Forum, unique=True)
     state = models.CharField(max_length=1, choices=project_state_choices, default='I')
-    created_date = models.DateField();
+    created_date = models.DateField(auto_now_add=True);
     tags = TagField(blank=True, null=True)
 
     def __unicode__(self):
@@ -31,7 +33,7 @@ task_state_choices = (('O', 'open'), ('C', 'closed'))
 
 class Task(models.Model):
     title = models.CharField(max_length=140)
-    created_date = models.DateField()
+    created_date = models.DateField(auto_now_add=True)
     due_date = models.DateField(blank=True,null=True,)
     state = models.CharField(max_length=1, choices=task_state_choices, default='O')
     completed_date = models.DateField(blank=True,null=True)

@@ -1,0 +1,8 @@
+To create a new project:
+curl -u rdsr:passwd -X POST http://127.0.0.1:8000/api/projects/ -d @file.json -H "Content-Type:application/json" -v
+
+To delete a project:
+curl -u rahul:password -X DELETE http://127.0.0.1:8000/api/projects/2 -v
+
+To update a project
+curl -u rdsr:password -X PUT http://127.0.0.1:8000/api/projects/6/ -d @file.json -H "Content-Type:applation/json" -v
