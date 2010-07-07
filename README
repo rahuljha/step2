@@ -1,5 +1,5 @@
 * To use
-  - create a mysql database, and a user with privleges on that database.
+  - create a mysql database, and a user with privileges on that database.
   - update the setting.py file with the new DB settings
   - modify WORKSPACE_DIR to point to your local git copy of step2.
   - run setup.sh script to install 3rd party apps
