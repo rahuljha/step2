@@ -1,7 +1,8 @@
 To create a project:
 {"name": "project3", "description": "some text", "forum_id": 2, "members" : [{"id": 1}], "owner_id": 1, "created_by_id": 1}
-Note: forum should be created beforehand
 
 To update a project:
 {"name": "project4", "description": "some text2", "members" : [{"id" : 1}, {"id": 2}]}
 
+To create a task:
+{"title": "a task for project 1", "description": "task for project 1", "belongs_to_project": 1}

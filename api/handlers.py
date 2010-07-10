@@ -25,14 +25,9 @@ class ProjectsHandler(BaseHandler):
         if request.content_type:
             data = request.data
 
-            forum = None
-            if 'forum_id' in data:
-                forum=Forum.objects.get(pk=data['forum_id'])
-            elif 'forum' in data:
-                forum = None #TODO create from json string
-            else:
-                return create_response(rc.BAD_REQUEST,
-                                       ' either provide a forum id or a forum json string in the request data')
+            forum = Forum(title="A forum for project " + data['name'],
+                          description="a forum for discussions on the project " + data['name'])
+            forum.save()
 
             owner = None
             if not 'owner_id' in data:
@@ -40,7 +35,11 @@ class ProjectsHandler(BaseHandler):
             else:
                 owner = User.objects.get(pk=data['owner_id'])
 
-            project = self.model(name=data['name'], owner=owner, created_by=request.user, description=data['description'], forum=forum)
+            project = self.model(name=data['name'],
+                                 owner=owner,
+                                 created_by=request.user,
+                                 description=data['description'],
+                                 forum=forum)
             project.save()
 
             for member in data['members']:
@@ -61,9 +60,9 @@ class ProjectHandler(BaseHandler):
 
     def __update(self, project, data):
         if 'name' in data: project.name = data['name']
-        if 'description' in data: project.name = data['description']
-        if 'owner' in data: project.name = data['owner']
-        if 'state' in data: project.name = data['state']
+        if 'description' in data: project.description = data['description']
+        if 'owner_id' in data: project.owner = User.objects.get(pk=data['owner_id'])
+        if 'state' in data: project.state = data['state']
 
         if 'members' in data:
             for member in data['members']:
@@ -117,12 +116,37 @@ class ProjectHandler(BaseHandler):
 
 class AllTasksHandler(BaseHandler):
     model = Task
-    allowed_methods = ('GET',)
+    allowed_methods = ('GET', 'POST',)
     fields = ('id', 'title', 'description')
 
     def read(self, request):
         tasks = Task.objects
         return tasks.all()
+
+    def create(self, request):
+        if not request.user.is_authenticated():
+            return rc.FORBIDDEN
+
+        if request.content_type:
+            data = request.data
+
+            assigned_to = request.user  # optional fields
+            if 'assigned_to' in data:
+                assigned_to = User.objects.get(pk=data['assigned_to'])
+
+            due_date = None             # optional field
+            if 'due_date' in data:
+                due_date = data['due_date']
+
+            task = self.model(title=data['title'],
+                              due_date=due_date,
+                              created_by=request.user,
+                              assigned_to=assigned_to,
+                              belongs_to_project=Project.objects.get(pk=data['belongs_to_project']),
+                              description=data['description'],)
+
+            task.save()
+            return rc.CREATED
 
 
 class ProjectTasksHandler(BaseHandler):
@@ -137,11 +161,19 @@ class ProjectTasksHandler(BaseHandler):
 
 class TaskHandler(BaseHandler):
     model = Task
-    allowed_methods = ('GET', 'DELETE', 'PUT', 'POST')
-    fields = ('id', 'title', 'created_date', 'due_date', 'state', 'completed_date', 'description', 'priority',
+    allowed_methods = ('GET', 'DELETE', 'PUT',)
+    fields = ('id', 'title', 'created_date', 'due_date', 'state', 'completed_date', 'description',
               ('created_by', ('id', 'username', 'first_name', 'last_name')),
               ('assigned_to', ('id', 'username', 'first_name', 'last_name')),
               ('belongs_to_project', ('id', 'name')))
+
+    def __update(self, task, data):
+        if 'title' in data: task.name = data['title']
+        if 'description' in data: task.description = data['description']
+        if 'state' in data: task.state = data['state']
+        if 'due_date' in data: task.due_date = data['due_date']
+        if 'assigned_to_id' in data: task.assigned_to = User.objects.get(pk=data['assigned_to_id'])
+        return task
 
     def read(self, request, id):
         try:
@@ -150,28 +182,30 @@ class TaskHandler(BaseHandler):
         except Task.DoesNotExist:
             return {}
 
-    #def create(self, request):
-    #    data = request.POST
-        # createProject(data)
+    def update(self, request, id):
+        if not request.user.is_authenticated():
+            return rc.FORBIDDEN
+        if request.content_type:
+            data = request.data
+            try:
+                task = Task.objects.get(pk=id)
+            except Task.DoesNotExist:
+                return create_response(rc.NOT_HERE, 'task with id ' + id + ' does not exist')
+            self.__update(task, data).save()
+            return rc.ALL_OK
 
-    # def update(self, request, id):
-    #     task = Task.objects.get(pk=id)
-
-    #     if not task.owner == request.user:
-    #         return rc.FORBIDDEN
-
-    #     updatedTask = updateTask(task, request.POST)
-    #     return updateTask
-
-    # def delete(self, request, id):
-    #     task = Task.objects.get(pk=id)
-
-    #     if not task.owner == request.user:
-    #         return rc.FORBIDDEN
-
-    #     task.delete()
-    #     return rc.DELETED
-
+    def delete(self, request, id):
+        if not request.user.is_authenticated():
+            return rc.FORBIDDEN
+        try:
+            task = Task.objects.get(pk=id)
+        except Task.DoesNotExist:
+            return create_response(rc.NOT_HERE, ' task with id ' + id + ' does not exist')
+        if task.created_by == request.user:
+            task.delete()
+            return rc.DELETED
+        else:
+            return create_response(rc.FORBIDDEN, request.user.username + ' is not allowed to delete a task')
 
 
 class ForumsHandler(BaseHandler):

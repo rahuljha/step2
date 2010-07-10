@@ -27,7 +27,7 @@ urlpatterns = patterns('',
                        url(r'^projects/$', projects),
                        url(r'^projects/(\d+)/$', project),
 
-                       url(r'^projects/tasks/$', all_tasks),   # is this required?
+                       url(r'^projects/tasks/$', all_tasks),
                        url(r'^projects/(\d+)/tasks/$', project_tasks),
 
                        url(r'^projects/tasks/(\d+)/$', task),

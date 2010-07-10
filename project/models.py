@@ -41,7 +41,6 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(User, related_name='tasks_assigned')
     belongs_to_project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
-    priority = models.PositiveIntegerField(max_length=3)
 
     def overdue_status(self):
         "Returns whether the task's due date has passed or not."
@@ -50,6 +49,3 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.title
-
-    class Meta:
-        ordering = ["priority"]
