@@ -17,11 +17,17 @@ project_tasks = Resource(handler=ProjectTasksHandler, authentication=auth)
 forum = Resource(handler=ForumHandler, authentication=auth)
 forums = Resource(handler=ForumsHandler, authentication=auth)
 
+# thread = Resource(handler=ThreadHandler, authentication=auth)
+# forum_threads = Resource(handler=ForumThreadsHandler, authentication=auth)
+
+# post = Resource(handler=PostHandler, authentication=auth)
+# thread_posts = Resource(handler=ThreadPostsHandler, authentication=auth)
+
 urlpatterns = patterns('',
                        url(r'^projects/$', projects),
-                       url(r'^projects/(\d+)$', project),
+                       url(r'^projects/(\d+)/$', project),
 
-                       url(r'^projects/tasks/$', all_tasks),   # is this required?
+                       url(r'^projects/tasks/$', all_tasks),
                        url(r'^projects/(\d+)/tasks/$', project_tasks),
 
                        url(r'^projects/tasks/(\d+)/$', task),
@@ -29,11 +35,10 @@ urlpatterns = patterns('',
                        url(r'^forums/$', forums),
                        url(r'^forums/(\d+)/$', forum),
 
-                       # to be added, if required
-                       # url(r'^forums/(\d+)/threads/$', forum_threads),
-                       # url(r'^forums/threads/(\d+)/$', thread),
+                       #url(r'^forums/(\d+)/threads/$', forum_threads),
+                       #url(r'^forums/threads/(\d+)/$', thread),
 
-                       # url(r'^forums/threads/(\d+)/posts/$', thread_posts),
-                       # url(r'^forums/threads/posts/(\d+)/$', post),
+                       #url(r'^forums/threads/(\d+)/posts/$', thread_posts),
+                       #url(r'^forums/threads/posts/(\d+)/$', post),
                        )
 
