@@ -6,3 +6,7 @@ To update a project:
 
 To create a task:
 {"title": "a task for project 1", "description": "task for project 1", "belongs_to_project": 1}
+
+To update a task
+{"title": "updated task for project 1", "description": "updated task for project 1", "belongs_to_id": 1}
+Note: title, description, state, due_date, assigned_to_id are all optional fields which can be used/omitted
