@@ -1,10 +1,11 @@
 from django.conf.urls.defaults import *
 from django.views.generic import list_detail
 from django.views.generic.simple import direct_to_template
-from project.models import project
+from project.models import Project
 from settings import WORKSPACE_DIR
 
-from django.contrib import adminadmin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 
 urlpatterns = patterns('',
@@ -18,3 +19,4 @@ urlpatterns = patterns('',
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + '/site_media/'}), 
                        #REST interface                       
                        (r'^api/', include('api.urls')))
+
