@@ -14,5 +14,7 @@ urlpatterns = patterns('',
                        (r'^admin/', include(admin.site.urls)),
                        (r'^projects/', include('project.urls')),
                        (r'^forum/', include('forum.urls')),
-                       (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + '/site_media/'}),
-                       #REST interface                       (r'^api/', include('api.urls')))
+                       #static media for dev box, comment the next line on on production
+                       (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + '/site_media/'}), 
+                       #REST interface                       
+                       (r'^api/', include('api.urls')))
