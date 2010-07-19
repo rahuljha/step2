@@ -41,6 +41,7 @@ var task_ui_handler = new Task_ui_handler();
 
 
 init_dialogs = function() {
+
     $('#dialog_add_task').dialog({
                                      autoOpen: false,
 			             height: 500,
@@ -71,13 +72,14 @@ init_dialogs = function() {
                                                                                               $('#new_task_created_date').val(), 
                                                                                               $('#new_task_due_date').val(),
                                                                                               $('#new_task_assigned_to option:selected').text(),
-                                                                                              $('#new_task_state').val());
-					                    $(this).dialog('close');
+                                                                                              $('#new_task_state').val()
+                                                                                             );
 
+					                    $('#dialog_add_task').dialog('close');
                                                         },
                                                         error: function(obj, text, error) {
                                                             alert(text);
-                                                            $(this).dialog('close');
+					                    $('#dialog_add_task').dialog('close');
                                                         }
                                                     });
                                              
