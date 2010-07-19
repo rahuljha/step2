@@ -1,0 +1,44 @@
+#navigation_bar a.active {
+    background-position: -584px 30px;
+}
+
+#project_description {
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #e3e3e3;
+    background: #f4f4f4 url('/site_media/img/gradient.png') repeat-x 0px 0px;
+}
+
+#project_description h1 {
+    font-size: 1em;
+    color: #621E0B;
+    font-weight: bold;
+}
+
+#project_description a {
+    color: #832517;
+    text-decoration: none;
+}
+
+#project_description a:hover {
+    text-decoration: underline;
+}
+
+#project_tasks h2 {
+    background-color: #525252;
+    color: #fff;
+    font-size: 1em;
+    padding: 5px 10px;
+}
+
+.dialog_field {
+    padding: 10px 20px;
+    clear: right;
+}
+
+.dialog_field input, .dialog_field textarea {
+    float: right;
+    width: 70%;
+}
+
+

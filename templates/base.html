@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
+<html lang>
 <head>
 <!-- 960.gs css files -->
 <link rel="stylesheet" type="text/css" href="/site_media/css/960.css" />
@@ -24,25 +24,22 @@
     <a class="social_link" id="linkedin_link" href="http://linkedin.com/step_2"></a>
   </span>
   <span class="header_top_sec"><a href="/feedback">Feedback</a></span>
-<hr style="width: 1px; height: 20px; display: inline;">
   <span class="header_top_sec"><a href="/contact_us">Contact Us</a></span>
 
 <div id="navigation_bar">
-  <a class="active" href="/home">Home</a>
-  <a href="/projects">Projects</a>
-  <a href="/forums">Forums</a>
-  <a href="/resources">Resources</a>
-  <a href="/people">People</a>
-  <a href="/about_us">About Us</a>
+{% block nav_home %} <a href="/home">Home</a>{% endblock %}
+{% block nav_projects %} <a href="/projects">Projects</a>{% endblock %}
+{% block nav_forums %} <a href="/forums">Forums</a>{% endblock %}
+{% block nav_resources %}  <a href="/resources">Resources</a>{% endblock %}
+{% block nav_people %} <a href="/people">People</a>{% endblock %}
+{% block nav_about_us %}  <a href="/about_us">About Us</a>{% endblock %}
 </div>
 </div>
 
 <div class="clear"></div>
 
-<div id="maincontent" class="grid_12">
 {% block maincontent %}{% endblock %}
-</div>
-<div class="clear"></div>
+
 <div id="footer" class="grid_12">
 </div>
 {% block javascript %}{% endblock %}

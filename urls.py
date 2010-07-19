@@ -11,7 +11,8 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-                       (r'^$', direct_to_template, {'template': 'about.html'}),
+                       (r'^$', direct_to_template, {'template': 'home.html'}),
+                       (r'^home/$', direct_to_template, {'template': 'home.html'}),
                        (r'^about/$', direct_to_template, {'template': 'about.html'}),
                        (r'^admin/', include(admin.site.urls)),
                        (r'^projects/', include('project.urls')),
