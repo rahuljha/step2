@@ -9,34 +9,32 @@
 {% block nav_projects %} <a href="/projects" class="active">Projects</a> {% endblock %}
 {% block maincontent %}
 <div id="project_description">
-<h1>Project Name: {{project.name}}</h1>
+<h1>{{project.name|capfirst}}</h1>
 <p> {{project.description}}</p>
 </div>
 
-<div class="grid_6" id="project_updates">
-  <h2>Project Updates</h2>
-</div>
-
-<div class="grid_6" id="project_resources">
-  <h2>Project Resources</h2>
-</div>
-
-<div class="clear"></div>
-
 <div id="project_tasks" class="grid_12">
-<h2>Project Tasks</h2>
-    <table class="display" id="task_list"></table>
-    <a href='#' id='add_task'>Add Task</a>
-    <div id='dialog_add_task'>
-      <div class='dialog_field'><label for='new_task_title'>Title</label> <input id='new_task_title'></input></div>
-      <div class='dialog_field'><label for='new_task_desc'>Description</label><textarea id='new_task_desc'></textarea></div>
-      <div class='dialog_field'><label for='new_task_due_date'>Due Date</label><input id='new_task_due_date' class='date_picker'></textarea></div>
-      <input type='hidden' id='belongs_to_project' value='{{ project.id }}'></input>
-    </div>
+  <h2>Tasks</h2>
+  <table class="display" id="task_list"></table>
+  <a href='#' id='add_task'>Add Task</a>
+  <div id='dialog_add_task'>
+    <label for='new_task_title'>Title</label><input id='new_task_title'></input>
+    <label for='new_task_desc'>Description</label><textarea id='new_task_desc'></textarea>
+    <label for='new_task_due_date'>Due Date</label><input id='new_task_due_date' class='date_picker' value='{% now "Y-m-d" %}'></input>
+    <label for='new_task_assigned_to'>Assign To</label>
+    <select id='new_task_assigned_to'>
+      {% for member in project.members.all %}
+      <option id = '{{ member.id }}'>{{ member.username }}</option>
+      {% endfor %}
+    </select>
+    <input type='hidden' id='belongs_to_project' value='{{ project.id }}'></input>
+    <input type='hidden' id='new_task_created_date' value='{% now "Y-m-d" %}'></input>
+    <input type='hidden' id='new_task_state' value='O'></input>
+  </div>
 </div>
 <div class="clear"></div>
 <div id="project_forum" class="grid_12">
-  <h3>Forum</h3>
+  <h2>Forum</h2>
 </div>
 <div class="clear"></div>
 {% endblock %}

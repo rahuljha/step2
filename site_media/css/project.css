@@ -15,30 +15,25 @@
     font-weight: bold;
 }
 
-#project_description a {
-    color: #832517;
-    text-decoration: none;
-}
-
-#project_description a:hover {
-    text-decoration: underline;
-}
-
-#project_tasks h2 {
+#project_tasks h2, #project_forum h2 {
     background-color: #525252;
     color: #fff;
     font-size: 1em;
     padding: 5px 10px;
+    margin-top: 20px;
 }
 
-.dialog_field {
-    padding: 10px 20px;
-    clear: right;
+#dialog_add_task label {
+    display: block;
+    margin-top: 10px;
 }
 
-.dialog_field input, .dialog_field textarea {
+#dialog_add_task textarea {
+    width: 250px;
+    height: 100px;
+}
+
+a#add_task {
     float: right;
-    width: 70%;
+    font-weight: bold;
 }
-
-

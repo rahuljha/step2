@@ -28,6 +28,15 @@ span.header_top_sec a:hover {
     padding: 2px 12px;
 }
 
+a {
+    color: #832517;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 /*specific styles*/
 
 body {

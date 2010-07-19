@@ -22,8 +22,9 @@ class Project(models.Model):
     members = models.ManyToManyField(User)
     forum = models.ForeignKey(Forum, unique=True)
     state = models.CharField(max_length=1, choices=project_state_choices, default='I')
-    created_date = models.DateField(auto_now_add=True);
+    created_date = models.DateField(auto_now_add=True)
     tags = TagField(blank=True, null=True)
+    slug = models.SlugField()
 
     def __unicode__(self):
         return self.name
@@ -41,6 +42,7 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(User, related_name='tasks_assigned')
     belongs_to_project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
+    slug = models.SlugField()
 
     def overdue_status(self):
         "Returns whether the task's due date has passed or not."

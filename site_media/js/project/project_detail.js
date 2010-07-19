@@ -8,25 +8,26 @@ Task_ui_handler = function() {
         taskArray = new Array();
         for(task in tasks) {
             taskData = tasks[task];
-            taskArray.push(new Array(taskData['title'], 
+            taskArray.push(new Array("<a href='/projects/tasks/"+taskData['id']+"'>"+taskData['title']+"</a>", 
                                      taskData['created_date'], 
                                      taskData['due_date'],
-                                     "<a href='#'>"+taskData['assigned_to']['username']+"</a>",
-                                     taskData['state']));
+                                     taskData['assigned_to']['username'],
+                                     taskData['state'])
+                          );
         }
         
         _this.task_table = $('#task_list').dataTable({
-		                                        "aaData": taskArray,
-		                                        "aoColumns": [
-		                                            { "sTitle": "Title" },
-		                                            { "sTitle": "Start Date", "sClass": "center"},
-		                                            { "sTitle": "End Date", "sClass": "center" },
-	                                            { "sTitle": "Assigned To", "sClass": "center"},
-		                                            { "sTitle": "State"}
-		                                        ],
-                                                        "iDisplayLength": 5,
-                                                        "sPaginationType": "full_numbers",
-	                                            });	
+		                                         "aaData": taskArray,
+		                                         "aoColumns": [
+		                                             { "sTitle": "Task" },
+		                                             { "sTitle": "Start Date", "sClass": "center"},
+		                                             { "sTitle": "End Date", "sClass": "center" },
+	                                                     { "sTitle": "Assigned To", "sClass": "center"},
+		                                             { "sTitle": "State"}
+		                                         ],
+                                                         "iDisplayLength": 5,
+                                                         "sPaginationType": "full_numbers"
+	                                             });	
         
     };
 
@@ -42,8 +43,8 @@ var task_ui_handler = new Task_ui_handler();
 init_dialogs = function() {
     $('#dialog_add_task').dialog({
                                      autoOpen: false,
-			             height: 300,
-			             width: 400,
+			             height: 500,
+			             width: 300,
 			             modal: true,
                                      buttons: {
                                          'Add Task': function() {
@@ -53,7 +54,10 @@ init_dialogs = function() {
                                                  description: $('#new_task_desc').val(),
                                                  belongs_to_project: $('#belongs_to_project').val(),
                                                  due_date: $('#new_task_due_date').val(),
-                                             }
+                                                 created_date: $('#new_task_created_date').val(),
+                                                 state: $('#new_task_state').val(),
+                                                 assigned_to: $('#new_task_assigned_to option:selected').attr('id')
+                                             };
                                              
                                              $.ajax({
                                                         url: '/api/projects/tasks/',
@@ -64,10 +68,10 @@ init_dialogs = function() {
                                                         password: 'Rahul222486',
                                                         success: function(retval) {
                                                             task_ui_handler.update_task_table($('#new_task_title').val(), 
-                                                                                              '', 
+                                                                                              $('#new_task_created_date').val(), 
                                                                                               $('#new_task_due_date').val(),
-                                                                                              '', 
-                                                                                              '');
+                                                                                              $('#new_task_assigned_to option:selected').text(),
+                                                                                              $('#new_task_state').val());
 					                    $(this).dialog('close');
 
                                                         },
@@ -79,6 +83,7 @@ init_dialogs = function() {
                                              
                                          },
                                          Cancel: function() {
+                                            
 					     $(this).dialog('close');
 				         }
                                      },
@@ -87,25 +92,25 @@ init_dialogs = function() {
 
                                  });
     $('.date_picker').datepicker({ dateFormat: 'yy-mm-dd' });
-}
+};
 
 init_buttons = function() {
     $('#add_task').click(function() {
                              $('#dialog_add_task').dialog('open');
                              return false;
-});
-}
+                         });
+};
 
 $(document).ready(
 
     function() {
-    $.ajax({
-               url: "/api/projects/1/tasks",
-	       type: 'GET',
-               dataType: 'json',
-               timeout: 5000,
-               success: task_ui_handler.load_task_table
-           });
+        $.ajax({
+                   url: "/api/projects/1/tasks",
+	           type: 'GET',
+                   dataType: 'json',
+                   timeout: 5000,
+                   success: task_ui_handler.load_task_table
+               });
 
         init_dialogs();
         init_buttons();
@@ -113,7 +118,7 @@ $(document).ready(
                                                   moreText: "expand",
                                                   lessText: "collapse",
                                                   moreAni: "fast",
-                                                  lessAni: "fast",
+                                                  lessAni: "fast"
                                               });
     }
 );
