@@ -3,35 +3,50 @@
 {% block title%}{{project.name}}{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" href="/site_media/css/smoothness/jquery-ui-1.8.2.custom.css" />
+<link rel="stylesheet" type="text/css" href="/site_media/css/project.css" />
+<link rel="stylesheet" type="text/css" href="/site_media/css/jquery_data_table.css" />
 {%endblock%}
+{% block nav_projects %} <a href="/projects" class="active">Projects</a> {% endblock %}
 {% block maincontent %}
+<div id="project_description">
 <h1>Project Name: {{project.name}}</h1>
-<div class="grid_5" id="project_updates">
-  <h3>Project Updates</h3>
+<p> {{project.description}}</p>
 </div>
+
+<div class="grid_6" id="project_updates">
+  <h2>Project Updates</h2>
+</div>
+
 <div class="grid_6" id="project_resources">
-  <h3>Project Resources</h3>
+  <h2>Project Resources</h2>
 </div>
+
 <div class="clear"></div>
+
 <div id="project_tasks" class="grid_12">
-    <h3>Tasks</h3>
-    <div id="task_list"></div>
+<h2>Project Tasks</h2>
+    <table class="display" id="task_list"></table>
     <a href='#' id='add_task'>Add Task</a>
     <div id='dialog_add_task'>
       <div class='dialog_field'><label for='new_task_title'>Title</label> <input id='new_task_title'></input></div>
       <div class='dialog_field'><label for='new_task_desc'>Description</label><textarea id='new_task_desc'></textarea></div>
+      <div class='dialog_field'><label for='new_task_due_date'>Due Date</label><input id='new_task_due_date' class='date_picker'></textarea></div>
       <input type='hidden' id='belongs_to_project' value='{{ project.id }}'></input>
     </div>
 </div>
+<div class="clear"></div>
 <div id="project_forum" class="grid_12">
   <h3>Forum</h3>
 </div>
+<div class="clear"></div>
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript" src="/site_media/js/external/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/site_media/js/external/jquery-ui-1.8.2.custom.min.js"></script>
 <script type="text/javascript" src="/site_media/js/external/json2.js"></script>
+<script type="text/javascript" src="/site_media/js/external/jquery.jtruncate.js"></script>
+<script type="text/javascript" src="/site_media/js/external/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/site_media/js/project/project_detail.js"></script>
 </script>
 {% endblock %}

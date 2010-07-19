@@ -152,7 +152,9 @@ class AllTasksHandler(BaseHandler):
 class ProjectTasksHandler(BaseHandler):
     model = Task
     allowed_methods = ('GET',)
-    fields = ('id', 'title', 'description')
+    fields = ('id', 'title', 'description', 'created_date', 'due_date', 
+              ('assigned_to', ('id', 'username')), 
+              'state')
 
     def read(self, request, id):
         tasks = Task.objects.filter(belongs_to_project=id)
