@@ -6,7 +6,7 @@ from step2.project.models import Project, Task
 from step2.forum.models import Forum, Thread
 
 def create_response(response, mesg):
-    response.write(mesg)
+    response.write(" " + str(mesg))
     return response
 
 class ProjectsHandler(BaseHandler):
@@ -46,7 +46,7 @@ class ProjectsHandler(BaseHandler):
                 user = User.objects.get(pk=member['id'])
                 project.members.add(user)
 
-                return create_response(rc.CREATED, project.id);
+                return (rc.CREATED, project.id);
         # else:
         # TODO: the data is not a json string, maybe a dataform?, need to handle this
 
@@ -88,8 +88,7 @@ class ProjectHandler(BaseHandler):
             try:
                 project = Project.objects.get(pk=id)
             except Project.DoesNotExist:
-                return create_response(rc.NOT_HERE,
-                                       'project with id ' + id + ' does not exist')
+                return create_response(rc.NOT_HERE,'project with id ' + id + ' does not exist')
 
             if request.user == project.owner or [member for member in project.members.all() if request.user == member]:
                 self.__update(project, data).save()
@@ -105,7 +104,7 @@ class ProjectHandler(BaseHandler):
         try:
             project = Project.objects.get(pk=id)
         except Project.DoesNotExist:
-            return create_response(rc.NOT_HERE, ' project with id ' + id + ' does not exist')
+            return create_response(rc.NOT_HERE,'project with id ' + id + ' does not exist')
 
         if project.owner == request.user:
             project.delete()
@@ -202,7 +201,7 @@ class TaskHandler(BaseHandler):
         try:
             task = Task.objects.get(pk=id)
         except Task.DoesNotExist:
-            return create_response(rc.NOT_HERE, ' task with id ' + id + ' does not exist')
+            return create_response(rc.NOT_HERE, 'task with id ' + id + ' does not exist')
         if task.created_by == request.user:
             task.delete()
             return rc.DELETED

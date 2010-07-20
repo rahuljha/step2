@@ -3,7 +3,8 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-WORKSPACE_DIR = '/Users/rahuljha/source_code/step2/'  #change this accordingly
+WORKSPACE_DIR = '/Users/rdsr/work/src-code/step2/'  #change this accordingly
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 FORUM_BASE = '/forum'
 
 ADMINS = (
@@ -13,9 +14,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = ''             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
+DATABASE_NAME = 'step2'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'step2'             # Not used with sqlite3.
+DATABASE_PASSWORD = 'step2'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -82,9 +83,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'south',
+    'piston',
     'forum',
     'project',
-    'member',
+    'userprofile',
     'tagging',
     'api',
 )
