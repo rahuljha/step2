@@ -21,7 +21,7 @@ Task_ui_handler = function() {
 		                                         "aoColumns": [
 		                                             { "sTitle": "Task" },
 		                                             { "sTitle": "Start Date", "sClass": "center"},
-		                                             { "sTitle": "End Date", "sClass": "center" },
+		                                             { "sTitle": "Due Date", "sClass": "center" },
 	                                                     { "sTitle": "Assigned To", "sClass": "center"},
 		                                             { "sTitle": "State"}
 		                                         ],
@@ -119,6 +119,7 @@ $(document).ready(
 
         init_dialogs();
         init_buttons();
+
         $('#project_description p').jTruncate({
                                                   moreText: "expand",
                                                   lessText: "collapse",
