@@ -46,7 +46,7 @@ class ProjectsHandler(BaseHandler):
                 user = User.objects.get(pk=member['id'])
                 project.members.add(user)
 
-                return rc.CREATED
+                return create_response(rc.CREATED, project.id);
         # else:
         # TODO: the data is not a json string, maybe a dataform?, need to handle this
 
@@ -146,14 +146,14 @@ class AllTasksHandler(BaseHandler):
                               description=data['description'],)
 
             task.save()
-            return rc.CREATED
+            return create_response(rc.CREATED, task.id)
 
 
 class ProjectTasksHandler(BaseHandler):
     model = Task
     allowed_methods = ('GET',)
-    fields = ('id', 'title', 'description', 'created_date', 'due_date', 
-              ('assigned_to', ('id', 'username')), 
+    fields = ('id', 'title', 'description', 'created_date', 'due_date',
+              ('assigned_to', ('id', 'username')),
               'state')
 
     def read(self, request, id):
