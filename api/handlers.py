@@ -1,9 +1,9 @@
 from piston.handler import BaseHandler
-from piston.utils import rc, throttle #TODO: use throttle
+from piston.utils import rc #TODO: use throttle
 
 from django.contrib.auth.models import User
 from step2.project.models import Project, Task
-from step2.forum.models import Forum, Thread
+from step2.forum.models import Forum, Thread, Post
 
 def create_response(response, mesg):
     response.write(" " + str(mesg))
@@ -15,8 +15,7 @@ class ProjectsHandler(BaseHandler):
     fields = ('id', 'name')
 
     def read(self, request):
-        projects = Project.objects
-        return projects.all()
+        return Project.objects.all()
 
     def create(self, request):
         if not request.user.is_authenticated():
@@ -119,8 +118,7 @@ class AllTasksHandler(BaseHandler):
     fields = ('id', 'title', 'description')
 
     def read(self, request):
-        tasks = Task.objects
-        return tasks.all()
+        return Task.objects.all()
 
     def create(self, request):
         if not request.user.is_authenticated():
@@ -143,7 +141,6 @@ class AllTasksHandler(BaseHandler):
                               assigned_to=assigned_to,
                               belongs_to_project=Project.objects.get(pk=data['belongs_to_project']),
                               description=data['description'],)
-
             task.save()
             return create_response(rc.CREATED, task.id)
 
@@ -151,13 +148,11 @@ class AllTasksHandler(BaseHandler):
 class ProjectTasksHandler(BaseHandler):
     model = Task
     allowed_methods = ('GET',)
-    fields = ('id', 'title', 'description', 'created_date', 'due_date',
-              ('assigned_to', ('id', 'username')),
-              'state')
+    fields = ('id', 'title', 'description', 'state', 'created_date', 'due_date',
+              ('assigned_to', ('id', 'username')))
 
     def read(self, request, id):
-        tasks = Task.objects.filter(belongs_to_project=id)
-        return tasks.all()
+        return Task.objects.filter(belongs_to_project=id)
 
 
 class TaskHandler(BaseHandler):
@@ -214,37 +209,41 @@ class ForumsHandler(BaseHandler):
     fields = ('id', 'title')
 
     def read(self, request):
-        forums = Forum.objects
-        return forums.all()
-
+        return Forum.objects.all()
 
 class ForumHandler(BaseHandler):
     model = Forum
     fields = ('id', 'title', 'slug', 'parent', 'description', 'threads', 'posts',
               ('groups', ('name')))
 
+    def read(self, request, project_id=None, forum_id=None):
+        if project_id:
+            try:
+                return Project.objects.get(pk=project_id).forum
+            except Project.DoesNotExist:
+                {}
+        elif forum_id:
+            try:
+                return Forum.objects.get(pk=forum_id)
+            except Forum.DoesNotExist:
+                return {}
+        else:
+            return rc.BAD_REQUEST
+
+
+class ForumThreadsHandler(BaseHandler):
+    model = Thread
+    allowed_methods = ('GET', 'POST',)
+    fields = ('id', 'title', 'closed', 'posts', 'views',)
+
     def read(self, request, id):
-        try:
-            forum = Forum.objects.get(pk=id)
-            return forum
-        except Forum.DoesNotExist:
-            return {}
+        return Thread.objects.filter(forum=id)
 
-    # def update(self, request, id):
-    #     forum = Forum.objects.get(pk=id)
 
-    #     if not forum.owner == request.user:
-    #         return rc.FORBIDDEN
+class ThreadPostsHandler(BaseHandler):
+    model = Post
+    allowed_methods = ('GET', 'POSt',)
+    fields = ('id', 'time', 'body_html', ('author', ('id', 'username')),)
 
-    #     updatedForum = updateForum(forum, request.POST)
-    #     return updateForum
-
-    # def delete(self, request, id):
-    #     forum = Forum.objects.get(pk=id)
-
-    #     if not forum.owner == request.user:
-    #         return rc.FORBIDDEN
-
-    #     forum.delete()
-    #     return rc.DELETED
-
+    def read(self, request, id):
+        return Post.objects.filter(thread=id)
