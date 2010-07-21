@@ -156,11 +156,11 @@ init_dialogs = function() {
                                                                   var row = $("tr.selected").get(0);
                                                                   task_table = task_table_handler.get_task_table();
                                                                   task_table.fnDeleteRow(task_table.fnGetPosition(row));
+                                                                  $("#dialog_confirm_delete").dialog('close');
 
                                                               }
                                                           });
 
-                                                   $(this).dialog('close');
 				               },
 				               Cancel: function() {
 					           $(this).dialog('close');
