@@ -34,6 +34,11 @@
 }
 
 a#add_task {
-    float: right;
     font-weight: bold;
 }
+
+a.task_ops {
+    padding: 0 5px;
+}
+
+
