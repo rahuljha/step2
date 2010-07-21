@@ -6,15 +6,17 @@ from django.contrib import admin
 from south.modelsinspector import add_introspection_rules
 from tagging.fields import TagField
 from forum.models import Forum
+from userprofile.models import SkillSet
 
 add_introspection_rules = ([], ["tagging_autocomplete\.models\.TagAutocompleteField"])
 
-project_state_choices = (('I', 'Incubation'),
-                         ('L', 'Looking for Resources'),
-                         ('W', 'In Progress'),
-                         ('M', 'Maintainence'),)
 
 class Project(models.Model):
+    project_state_choices = (('I', 'Incubation'),
+                             ('L', 'Looking for Resources'),
+                             ('W', 'In Progress'),
+                             ('M', 'Maintainence'))
+
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=500)
     owner = models.ForeignKey(User, related_name='projects_owner')
@@ -23,16 +25,18 @@ class Project(models.Model):
     forum = models.ForeignKey(Forum, unique=True)
     state = models.CharField(max_length=1, choices=project_state_choices, default='I')
     created_date = models.DateField(auto_now_add=True)
+    required_skills = models.ManyToManyField(SkillSet)
     tags = TagField(blank=True, null=True)
-    slug = models.SlugField()
+    #slug = models.SlugField()
 
     def __unicode__(self):
         return self.name
 
 
-task_state_choices = (('O', 'open'), ('C', 'closed'))
-
 class Task(models.Model):
+    task_state_choices = (('O', 'open'),
+                          ('C', 'closed'))
+
     title = models.CharField(max_length=140)
     created_date = models.DateField(auto_now_add=True)
     due_date = models.DateField(blank=True,null=True,)
@@ -42,7 +46,7 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(User, related_name='tasks_assigned')
     belongs_to_project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
-    slug = models.SlugField()
+    #slug = models.SlugField()
 
     def overdue_status(self):
         "Returns whether the task's due date has passed or not."

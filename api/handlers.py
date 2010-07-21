@@ -1,5 +1,5 @@
 from piston.handler import BaseHandler
-from piston.utils import rc, throttle #TODO: use throttle
+from piston.utils import rc #TODO: use throttle
 
 from django.contrib.auth.models import User
 from step2.project.models import Project, Task
@@ -118,8 +118,7 @@ class AllTasksHandler(BaseHandler):
     fields = ('id', 'title', 'description')
 
     def read(self, request):
-        tasks = Task.objects
-        return tasks.all()
+        return Task.objects.all()
 
     def create(self, request):
         if not request.user.is_authenticated():
@@ -142,7 +141,6 @@ class AllTasksHandler(BaseHandler):
                               assigned_to=assigned_to,
                               belongs_to_project=Project.objects.get(pk=data['belongs_to_project']),
                               description=data['description'],)
-
             task.save()
             return create_response(rc.CREATED, task.id)
 
@@ -150,9 +148,8 @@ class AllTasksHandler(BaseHandler):
 class ProjectTasksHandler(BaseHandler):
     model = Task
     allowed_methods = ('GET',)
-    fields = ('id', 'title', 'description', 'created_date', 'due_date',
-              ('assigned_to', ('id', 'username')),
-              'state')
+    fields = ('id', 'title', 'description', 'state', 'created_date', 'due_date',
+              ('assigned_to', ('id', 'username')))
 
     def read(self, request, id):
         return Task.objects.filter(belongs_to_project=id)
