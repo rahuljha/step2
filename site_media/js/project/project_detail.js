@@ -21,7 +21,7 @@ Task_ui_handler = function() {
 		                                         "aoColumns": [
 		                                             { "sTitle": "Task" },
 		                                             { "sTitle": "Start Date", "sClass": "center"},
-		                                             { "sTitle": "End Date", "sClass": "center" },
+		                                             { "sTitle": "Due Date", "sClass": "center" },
 	                                                     { "sTitle": "Assigned To", "sClass": "center"},
 		                                             { "sTitle": "State"}
 		                                         ],
@@ -67,8 +67,11 @@ init_dialogs = function() {
                                                         data: JSON.stringify(post_data),
                                                         username: 'rahuljha',
                                                         password: 'Rahul222486',
-                                                        success: function(retval) {
-                                                            task_ui_handler.update_task_table($('#new_task_title').val(), 
+                                                        success: function(data, textStatus, XMLHttpRequest) {
+                                                            task_id = data.split(' ')[1];
+                                                            task_ui_handler.update_task_table("<a href='/projects/tasks/"+
+                                                                                              task_id+"'>"+
+                                                                                              $('#new_task_title').val()+"</a>", 
                                                                                               $('#new_task_created_date').val(), 
                                                                                               $('#new_task_due_date').val(),
                                                                                               $('#new_task_assigned_to option:selected').text(),
@@ -116,6 +119,7 @@ $(document).ready(
 
         init_dialogs();
         init_buttons();
+
         $('#project_description p').jTruncate({
                                                   moreText: "expand",
                                                   lessText: "collapse",
