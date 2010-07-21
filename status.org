@@ -15,8 +15,16 @@
   + currently only read is supported
   + should create be supported?
 ** TODO Create the general update and email notification mechanism  :authentication:
+** TODO prettify enums
+** TODO UI change for forum app
+** DONE json api to list all the threads and posts
+   CLOSED: [2010-07-21 Wed 10:07]
 ** DONE removed members field from Task                  :rdsr:miscellaneous:
    CLOSED: [2010-07-03 Sat 02:29]
+** TODO forum list templates lists all the forums created and provides links to individual forums, these links are based on slugs. If the slugs are not unique the code breaks
+** TODO json api for update/delete/create threads and posts
 ** TODO examples folder to contain examples for various functionalities
 *** DONE rest-api examplse                                             :rdsr:
     CLOSED: [2010-07-07 Wed 11:44]
+
+** TODO add slugs and associated semantics to projects, tasks, userprofiles

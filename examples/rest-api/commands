@@ -1,19 +1,39 @@
 To create a new project:
-curl -u rdsr:password -X POST http://127.0.0.1:8000/api/projects/ -d @file.json -H "Content-Type:application/json" -v
+curl -u user:password -X POST http://127.0.0.1:8000/api/projects/ -d @file.json -H "Content-Type:application/json" -v
 
 To delete a project:
 curl -u rahul:password -X DELETE http://127.0.0.1:8000/api/projects/2 -v
 
 To update a project
-curl -u rdsr:password -X PUT http://127.0.0.1:8000/api/projects/6/ -d @file.json -H "Content-Type:applation/json" -v
+curl -u user:password -X PUT http://127.0.0.1:8000/api/projects/6/ -d @file.json -H "Content-Type:applation/json" -v
 
 ------------------------
-2
+
 To create a new task:
-curl -u rdsr:password -X POST http://127.0.0.1:8000/api/projects/tasks -d @file.json -H "Content-Type:application/json" -v
+curl -u user:password -X POST http://127.0.0.1:8000/api/projects/tasks -d @file.json -H "Content-Type:application/json" -v
 
 To delete a task
-curl -u rdsr:password -X DELETE 127.0.0.1:8000/api/projects/tasks/2/ -v
+curl -u user:password -X DELETE 127.0.0.1:8000/api/projects/tasks/2/ -v
 
 To update a task
-curl -u rdsr:password -X PUT http://127.0.0.1:8000/api/projects/task/2 -d -v @file.json -H "Content-Type:applation/json" -v
+curl -u user:password -X PUT http://127.0.0.1:8000/api/projects/task/2 -d -v @file.json -H "Content-Type:applation/json" -v
+
+------------------------
+
+To list a forum
+curl -u user:password http://127.0.0.1:8000/api/forums/1
+
+To get a forum belonging to a project
+curl -u user:password http://127.0.0.1:8000/api/projects/1/forum/
+
+------------------------
+
+To get all the threads belonging to a forum
+curl -u user:password http://127.0.0.1:8000/api/forums/2/threads/
+
+------------------------
+
+To get all the posts belonging to a thread
+curl -u user:password http://127.0.0.1:8000/api/forums/threads/1/posts/
+
+------------------------

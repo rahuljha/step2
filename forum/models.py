@@ -1,7 +1,7 @@
-""" 
+"""
 A basic forum model with corresponding thread/post models.
 
-Just about all logic required for smooth updates is in the save() 
+Just about all logic required for smooth updates is in the save()
 methods. A little extra logic is in views.py.
 """
 
@@ -11,6 +11,7 @@ from django.contrib.auth.models import User, Group
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import escape
+from django.template.defaultfilters import slugify
 try:
     from markdown import markdown
 except ImportError:
@@ -115,7 +116,7 @@ class Forum(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.title
-    
+
     class Meta:
         ordering = ['ordering', 'title',]
         verbose_name = _('Forum')
@@ -125,6 +126,8 @@ class Forum(models.Model):
         p_list = self._recurse_for_parents_name(self)
         if (self.title) in p_list:
             raise validators.ValidationError(_("You must not save a forum in itself!"))
+
+        self.slug = slugify(self.title);  # rdsr
         super(Forum, self).save(force_insert, force_update)
 
     def _flatten(self, L):
@@ -155,8 +158,8 @@ class Thread(models.Model):
     """
     A Thread belongs in a Forum, and is a collection of posts.
 
-    Threads can be closed or stickied which alter their behaviour 
-    in the thread listings. Again, the posts & views fields are 
+    Threads can be closed or stickied which alter their behaviour
+    in the thread listings. Again, the posts & views fields are
     automatically updated with saving a post or viewing the thread.
     """
     forum = models.ForeignKey(Forum)
@@ -197,17 +200,17 @@ class Thread(models.Model):
         f.threads = f.thread_set.count()
         f.posts = Post.objects.filter(thread__forum__pk=f.id).count()
         f.save()
-    
+
     def get_absolute_url(self):
         return ('forum_view_thread', [str(self.id)])
     get_absolute_url = models.permalink(get_absolute_url)
-    
+
     def __unicode__(self):
         return u'%s' % self.title
 
 class Post(models.Model):
-    """ 
-    A Post is a User's input to a thread. Uber-basic - the save() 
+    """
+    A Post is a User's input to a thread. Uber-basic - the save()
     method also updates models further up the heirarchy (Thread,Forum)
     """
     thread = models.ForeignKey(Thread)
@@ -219,7 +222,7 @@ class Post(models.Model):
     def save(self, force_insert=False, force_update=False):
         if not self.id:
             self.time = datetime.datetime.now()
-        
+
         self.body_html = markdown(escape(self.body))
         super(Post, self).save(force_insert, force_update)
 
@@ -255,10 +258,10 @@ class Post(models.Model):
         ordering = ('-time',)
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
-        
+
     def get_absolute_url(self):
         return '%s?page=last#post%s' % (self.thread.get_absolute_url(), self.id)
-    
+
     def __unicode__(self):
         return u"%s" % self.id
 
