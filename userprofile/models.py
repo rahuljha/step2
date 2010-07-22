@@ -7,7 +7,10 @@ add_introspection_rules = ([], ["^tagging_autocomplete\.models\.TagAutocompleteF
 
 class SkillSet(models.Model):
     skill = models.CharField(max_length=100)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.skill
 
 
 class UserProfile(models.Model):

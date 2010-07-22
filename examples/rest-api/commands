@@ -16,7 +16,7 @@ To delete a task
 curl -u user:password -X DELETE 127.0.0.1:8000/api/projects/tasks/2/ -v
 
 To update a task
-curl -u user:password -X PUT http://127.0.0.1:8000/api/projects/task/2 -d -v @file.json -H "Content-Type:applation/json" -v
+curl -u user:password -X PUT http://127.0.0.1:8000/api/projects/task/2/ -d -v @file.json -H "Content-Type:applation/json" -v
 
 ------------------------
 

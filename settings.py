@@ -3,9 +3,16 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-WORKSPACE_DIR = '/Users/rahuljha/source_code/step2/'  #change this accordingly
+WORKSPACE_DIR = '/Users/rdsr/work/src-code/step2/'  #change this accordingly
+
+# settings required for extending the user model
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
+
+# django forum settings
 FORUM_BASE = '/forum'
+
+# django-tagging settings
+FORCE_LOWERCASE_TAGS=True
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -14,9 +21,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'step2_new'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'rahuljha'             # Not used with sqlite3.
-DATABASE_PASSWORD = '222486'         # Not used with sqlite3.
+DATABASE_NAME = 'step2'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'step2'             # Not used with sqlite3.
+DATABASE_PASSWORD = 'step2'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
