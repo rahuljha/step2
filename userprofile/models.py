@@ -18,6 +18,6 @@ class UserProfile(models.Model):
     profile = models.TextField(max_length=500)
     aoi     = TagField(blank=True, null=True)
     user    = models.ForeignKey(User, unique=True)
-    skills  = models.ManyToManyField(SkillSet)
+    skills  = models.ManyToManyField(SkillSet, blank=True, null=True)
 
 

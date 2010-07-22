@@ -25,7 +25,7 @@ class Project(models.Model):
     forum = models.ForeignKey(Forum, unique=True)
     state = models.CharField(max_length=1, choices=project_state_choices, default='I')
     created_date = models.DateField(auto_now_add=True)
-    required_skills = models.ManyToManyField(SkillSet)
+    required_skills = models.ManyToManyField(SkillSet, blank=True, null=True)
     tags = TagField(blank=True, null=True)
     #slug = models.SlugField()
 

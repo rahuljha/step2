@@ -164,7 +164,7 @@ class TaskHandler(BaseHandler):
               ('belongs_to_project', ('id', 'name')))
 
     def __update(self, task, data):
-        if 'title' in data: task.name = data['title']
+        if 'title' in data: task.title = data['title']
         if 'description' in data: task.description = data['description']
         if 'state' in data: task.state = data['state']
         if 'due_date' in data: task.due_date = data['due_date']
