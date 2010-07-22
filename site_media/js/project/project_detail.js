@@ -2,6 +2,10 @@ Util = function() {
     this.create_task_link = function(task_id,task_title) {
         return "<a href='/projects/tasks/"+task_id+"'>"+task_title+"</a>";
     };
+
+    this.get_task_from_link = function(task_link) {
+      return task_link.split('>')[1].split('<')[0];
+    };
     
     this.create_ops_links = function(task_id, task_title) {
         edit_link = "<a class='task_ops edit_task' href='#'>Edit</a>";
@@ -9,6 +13,20 @@ Util = function() {
         task_id_input = "<input type='hidden' class='task_id' value='"+task_id+"' />";
         task_title_input = "<input type='hidden' class='task_title' value='"+task_title+"' />";
         return edit_link+delete_link+task_id_input+task_title_input;
+    };
+    
+    this.dialog_ops = {
+        edit: "edit",
+        add: "add"
+    };
+
+    this.init_task_dialog_data = function(row_data) {
+        $('#new_task_title').val(this.get_task_from_link(row_data[0]));
+        $('#new_task_desc').val();
+        $('#new_task_due_date').val(row_data[2]);
+        $('#new_task_assigned_to').val(row_data[3]);
+        $('#new_task_state').val(row_data[4]);
+        
     };
 };
 
@@ -24,14 +42,21 @@ Task_table_handler = function() {
 
     this.attach_ops_handlers = function() {
         $('#task_list').find('.edit_task').click(function() {
-                                                     alert("will edit "+$(this).parent().find('input.task_id').val());
+                                                     $('#dialog_operation').val(util.dialog_ops.edit);
+                                                     $('#dialog_task_id_input').val($(this).parent().find('input.task_id').val());
+                                                     $(this).parent().parent().addClass('selected');
+
+                                                     row = _this.task_table.fnGetPosition($(this).parent().parent().get(0));
+                                                     row_data = _this.get_row_data(row);
+                                                     util.init_task_dialog_data(row_data);
+                                                     $('#dialog_add_task').dialog('open');
                                                      return false;
                               });
         
         $('#task_list').find('.delete_task').click(function() {
                                                        $('input#delete_id').val($(this).parent().find('input.task_id').val());
-                                                       confirmation_msg = "Delete '"+$(this).parent().find('input.task_title').val()+"' ?";
-                                                       $('span#delete_confirmation_msg').text(confirmation_msg);
+                                                       confirmation_msg = "Delete <strong>'"+$(this).parent().find('input.task_title').val()+"'</strong> ?";
+                                                       $('span#delete_confirmation_msg').html(confirmation_msg);
                                                        $(this).parent().parent().addClass('selected');
                                                        $('#dialog_confirm_delete').dialog('open');
                                                        return false;
@@ -73,9 +98,18 @@ Task_table_handler = function() {
        
     };
 
-    this.update_task_table = function(title, created_date, due_date, assigned_to, state, ops_links) {
-        _this.task_table.fnAddData([title, created_date, due_date, assigned_to, state, ops_links]);
+    this.update_task_table = function(update_data) {
+        _this.task_table.fnAddData(update_data);
         _this.attach_ops_handlers();
+    };
+
+    this.update_task_row = function(row, update_data) {
+        _this.task_table.fnUpdate(update_data,task_table.fnGetPosition(row),0);
+        _this.attach_ops_handlers();
+    };
+
+    this.get_row_data = function(row) {
+      return _this.task_table.fnGetData(row);  
     };
 
 };
@@ -97,23 +131,45 @@ init_dialogs = function() {
         };
 
         ajax_success_handler = function(data, textStatus, XMLHttpRequest) {
-            task_id = data.split(' ')[1];
-            task_table_handler.update_task_table(
-                util.create_task_link(task_id, 
+
+            task_id = ($('#dialog_operation').val() == 'edit') ? $('#dialog_task_id_input').val() : data.split(' ')[1];
+
+            update_data = [
+                util.create_task_link(task_id,
                                       $('#new_task_title').val()),
                 $('#new_task_created_date').val(), 
                 $('#new_task_due_date').val(),
                 $('#new_task_assigned_to option:selected').text(),
                 $('#new_task_state').val(),
                 util.create_ops_links(task_id, $('#new_task_title').val())
-            );
+                ];
+
+            if($('#dialog_operation').val() == 'edit') {
+                var row = $("tr.selected").get(0);
+                task_table = task_table_handler.get_task_table();
+                task_table_handler.update_task_row(row, update_data);
+                $("tr.selected").removeClass('selected');
+            } else {
+                task_table_handler.update_task_table(update_data);
+            }
 
 	    $('#dialog_add_task').dialog('close');                           
         };
         
+        ajax_request_type = 'POST';
+        ajax_request_url = '/api/projects/tasks/';
+
+        if($('#dialog_operation').val() == 'edit') {
+            task_id = $('#dialog_task_id_input').val();
+
+            ajax_request_url= ajax_request_url+task_id+"/";
+            ajax_request_type = 'PUT';
+
+        }
+        
         $.ajax({
-                   url: '/api/projects/tasks/',
-                   type: 'POST',
+                   url: ajax_request_url,
+                   type: ajax_request_type,
                    contentType: 'application/json',
                    data: JSON.stringify(post_data),
                    success: ajax_success_handler,
@@ -121,7 +177,7 @@ init_dialogs = function() {
                        alert(text);
 		       $('#dialog_add_task').dialog('close');
                    }
-               });        
+               });
     };
 
     $('#dialog_add_task').dialog({
@@ -138,6 +194,8 @@ init_dialogs = function() {
                                      close: function() {
                                          $('#new_task_title').val('');
                                          $('#new_task_desc').val('');
+                                         $('#dialog_task_id_input').val('');
+                                         $('#dialog_operation').val('');
 			             }
 
                                  });
