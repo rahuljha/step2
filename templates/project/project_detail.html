@@ -31,6 +31,10 @@
     <input type='hidden' id='new_task_created_date' value='{% now "Y-m-d" %}'></input>
     <input type='hidden' id='new_task_state' value='O'></input>
   </div>
+  <div id='dialog_confirm_delete'>
+    <input type='hidden' id='delete_id' value=''></input>
+    <span id='delete_confirmation_msg'>Are you sure you want to delete this task?</span>
+  </div>
 </div>
 <div class="clear"></div>
 <div id="project_forum" class="grid_12">
@@ -40,11 +44,15 @@
 {% endblock %}
 
 {% block javascript %}
+<script type="text/javascript">
+  var project_id = {{ project.id }}
+</script>
 <script type="text/javascript" src="/site_media/js/external/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/site_media/js/external/jquery-ui-1.8.2.custom.min.js"></script>
 <script type="text/javascript" src="/site_media/js/external/json2.js"></script>
 <script type="text/javascript" src="/site_media/js/external/jquery.jtruncate.js"></script>
 <script type="text/javascript" src="/site_media/js/external/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/site_media/js/external/fullcalendar.min.js"></script>
 <script type="text/javascript" src="/site_media/js/project/project_detail.js"></script>
 </script>
 {% endblock %}
