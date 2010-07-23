@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title%}{{project.name}}{% endblock %}
-{% block maincontent %}
+{% block content %}
 <form action="" method="post">
 <p>{{ form.name.label_tag }} {{ form.name }}</p>
 <p>{{ form.description.label_tag }} {{ form.description }}</p>

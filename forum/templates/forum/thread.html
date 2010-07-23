@@ -1,4 +1,4 @@
-{% extends "forum_base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% block title %}{{ thread.title|escape }} ({{ forum.title }}){% endblock %}
 
@@ -36,7 +36,7 @@
 <p>{% trans "Sorry, this thread is closed. No further replies are permitted." %}</p>
 {% else %}
 {% if user.is_authenticated %}
-<form method='post' action='reply/'>
+<form method='post' action='reply/'>{% csrf_token %}
 <p><label>{% trans "Posting As" %}</label><span>{{ user.username }}</span></p>
 {{ form.as_p }}
 <input type='submit' value='{% trans "Submit" %}' />

@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/site_media/css/registration.css" />
+{% endblock %}
+
 {% block title %}Log in{% endblock %}
 
 {% block content %}
+
+<div class="grid_12">
 
 <h1>Log in</h1>
 
@@ -10,15 +16,18 @@
 <p class="error">Please correct the errors below:</p>
 {% endif %}
 
-<form method="post" action="?next={{ next|default:"/" }}">
+<form method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
 <dl>
-<dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
+<dt><label for="id_username"><strong>Username</strong> or <strong>Email</strong></label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
 <dd>{{ form.username }}</dd>
-<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
+<dt><label for="id_password"><strong>Password</strong></label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
 <dd>{{ form.password }}</dd>
 <dt><input type="submit" value="Log in" /></dt>
 </dl>
 </form>
+
+</div>
+<div class='clear'></div>
 {% endblock %}
 
 {% block content-related %}

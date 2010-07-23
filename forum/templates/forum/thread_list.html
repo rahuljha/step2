@@ -1,4 +1,4 @@
-{% extends "forum_base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block title %}{{ forum.title }}{% endblock %}
@@ -68,7 +68,7 @@
 
 <h2>{% trans "Create a Thread" %}</h2>
 {% if user.is_authenticated %}
-<form method='post' action='new/'>
+<form method='post' action='new/'>{% csrf_token %}
 <p><label>{% trans "Posting As" %}</label><span>{{ user.username }}</span></p>
 {{ form.as_p }}
 <p><input type='submit' value='{% trans "Post" %}' /></p>

@@ -1,4 +1,4 @@
-{% extends "forum_base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block title %}{% blocktrans with thread.title as title %}Reply to thread  "{{ title }}"{% endblocktrans %}{% endblock %}
@@ -11,7 +11,7 @@
 {% block content %}
 
 <h2>{% trans "Reply to Thread" %}</h2>
-<form method='post' action='./'>
+<form method='post' action='./'>{% csrf_token %}
 {% if form.errors %}<ul>{{ form.errors.as_ul }}</ul>{% endif %}
 <p><label>{% trans "Posting As" %}</label><span>{{ user.username }}</span></p>
 {{ form.as_p }}

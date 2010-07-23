@@ -37,6 +37,28 @@ a:hover {
     text-decoration: underline;
 }
 
+.rounded_button, .rounded_button_left_img, .rounded_button_right_img {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.rounded_button {
+    background: url('/site_media/img/button.png') repeat-x 0px 0px;
+    color: #fff;
+}
+
+.rounded_button_left_img {
+    background:url('/site_media/img/sprite.png') no-repeat -178px 0px;   
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.rounded_button_right_img {
+    background:url('/site_media/img/sprite.png') no-repeat -212px 0px;   
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
 /*specific styles*/
 
 body {
@@ -112,3 +134,27 @@ div#main {
 /*    padding: 20px 5px;*/
     background-color: #fff;
 }
+
+a#login_button {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+div#user_login {
+    text-align: right;
+    margin-top: 50px;
+}
+
+div#no_login_links {
+    margin: 10px 5px;
+}
+div#no_login_links a {
+    padding: 5px;
+    font-size: 0.9em;
+    color: #2660BD;
+}
+
+a#register_link {
+    border-right: 2px solid #bbb;
+}
+

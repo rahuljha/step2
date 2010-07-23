@@ -14,7 +14,7 @@ urlpatterns = patterns('',
                        (r'^about/$', direct_to_template, {'template': 'about.html'}),
                        (r'^admin/', include(admin.site.urls)),
                        (r'^projects/', include('project.urls')),
-                       (r'^forum/', include('forum.urls')),
+                       (r'^forums/', include('forum.urls')),
 		       (r'^accounts/', include('registration.backends.default.urls')),
                        #static media for dev box, comment the next line on on production
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + '/site_media/'}), 

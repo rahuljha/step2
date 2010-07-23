@@ -1,4 +1,4 @@
-{% extends "forum_base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% block title %}{% trans "Update Thread Subscriptions" %}{% endblock %}
 {% block pagetitle %}{% trans "Update Thread Subscriptions" %}{% endblock %}
@@ -10,7 +10,7 @@
 {% if not subs %}
 <p>{% trans "No subscriptions." %}</p>
 {% else %}
-<form method='post' action='./'>
+<form method='post' action='./'>{% csrf_token %}
 <table id='djangoForumThreadList'>
 
 <tr>
