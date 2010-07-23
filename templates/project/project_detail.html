@@ -27,9 +27,13 @@
       <option id='{{ member.id }}'>{{ member.username }}</option>
       {% endfor %}
     </select>
+    <label for='new_task_state'>State</label>
+    <select id='new_task_state'>
+      <option id='O'>open</option>
+      <option id='C'>closed</option>
+    </select>
     <input type='hidden' id='belongs_to_project' value='{{ project.id }}'></input>
     <input type='hidden' id='new_task_created_date' value='{% now "Y-m-d" %}'></input>
-    <input type='hidden' id='new_task_state' value='O'></input>
     <input type='hidden' id='dialog_task_id_input' value=''></input>
     <input type='hidden' id='dialog_operation' value=''></input>
   </div>

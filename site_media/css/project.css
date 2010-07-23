@@ -41,4 +41,7 @@ a.task_ops {
     padding: 0 5px;
 }
 
-
+td.task_desc {
+    padding: 10px;
+    background-color: #ddd;
+}
