@@ -28,3 +28,6 @@
     CLOSED: [2010-07-07 Wed 11:44]
 
 ** TODO add slugs and associated semantics to projects, tasks, userprofiles
+** TODO Remove forum creation code from rest api and move to models    :rdsr:
+** TODO Change maincontent in base template to content             :rahuljha:
+** TODO Add login button etc.                                      :rahuljha:
