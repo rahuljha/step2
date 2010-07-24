@@ -166,3 +166,7 @@ input#login_username, input#login_password {
     margin-left:10px;
     width:125px;
 }
+
+a#login_button, a#logout_button {
+    text-decoration: none;
+}

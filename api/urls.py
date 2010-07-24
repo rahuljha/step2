@@ -1,11 +1,11 @@
 from django.conf.urls.defaults import *
 from piston.resource import Resource
-from piston.authentication import HttpBasicAuthentication
+from piston.authentication import HttpBasicAuthentication, DjangoAuthentication
 #from piston.doc import documentation_view
 
 from step2.api.handlers import *
 
-auth = HttpBasicAuthentication(realm='step2 api')
+auth = DjangoAuthentication('/accounts/login', 'next');
 
 project = Resource(handler=ProjectHandler, authentication=auth)
 projects = Resource(handler=ProjectsHandler, authentication=auth)
