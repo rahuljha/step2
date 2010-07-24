@@ -158,3 +158,11 @@ a#register_link {
     border-right: 2px solid #bbb;
 }
 
+form#login_form {
+    display: inline;
+}
+
+input#login_username, input#login_password {
+    margin-left:10px;
+    width:125px;
+}

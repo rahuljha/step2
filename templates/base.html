@@ -16,7 +16,7 @@
   <div id="logo"></div>
   <h2 id="caption">weaving ideas</h2>
   <span class="header_top_sec rightmost">
-    <input id="site_search_input" value="Site Search"></input>
+    <input id="site_search_input"></input>
   </span>
   <span class="header_top_sec">
     <a class="social_link" id="twitter_link" href="http://twitter.com/step_2"></a>
@@ -29,7 +29,12 @@
 {% if user.is_authenticated %}
     Hola! {{ user.username }} <span class='rounded_button_left_img'></span><a class='rounded_button' href='/accounts/logout'>logout</a><span class='rounded_button_right_img'></span>
 {% else %}
-    <span class='rounded_button_left_img'></span><a class='rounded_button' id='login_button' href='/accounts/login'>login</a><span class='rounded_button_right_img'></span>
+<form id='login_form' action='/accounts/login/' method='post'>{% csrf_token %}
+<input id='login_username' name='username'></input>
+<input id='login_password' type='password' name='password'></input>
+<input type="hidden" name="next" value="/home" />
+</form>
+    <span class='rounded_button_left_img'></span><a class='rounded_button' id='login_button' href=#'>login</a><span class='rounded_button_right_img'></span>
 <div id='no_login_links'>
   <a id='register_link' href='/accounts/register'>Register as a new user</a>
   <a id='change_password_link' href='/accounts/password/change'>Forgot Password</a></div>
@@ -52,7 +57,10 @@
 
 <div id="footer" class="grid_12">
 </div>
-{% block javascript %}{% endblock %}
+{% block javascript %}
+{% endblock %}
+<script type="text/javascript" src="/site_media/js/external/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/site_media/js/base.js"></script>
 </div>
 </body>
 </html>
