@@ -7,6 +7,7 @@ from south.modelsinspector import add_introspection_rules
 from tagging.fields import TagField
 from forum.models import Forum
 from userprofile.models import SkillSet
+from django.template.defaultfilters import slugify
 
 add_introspection_rules = ([], ["tagging_autocomplete\.models\.TagAutocompleteField"])
 
@@ -27,7 +28,7 @@ class Project(models.Model):
     created_date = models.DateField(auto_now_add=True)
     required_skills = models.ManyToManyField(SkillSet, blank=True, null=True)
     tags = TagField(blank=True, null=True)
-    slug = models.SlugField()
+    slug = models.SlugField(null=True, blank=True);
 
     def __unicode__(self):
         return self.name
@@ -37,6 +38,7 @@ class Project(models.Model):
                       description="a little nudge from us to get you all up and running...")
         forum.save()
         self.forum = forum
+        self.slug = slugify(self.name);
         super(Project, self).save()
 
 
@@ -63,6 +65,9 @@ class Task(models.Model):
     def __unicode__(self):
         return self.title
 
+    def save():
+        self.slug = slugify(self.title);
+        super(Task, self).save()
 
 class ProjectForm(ModelForm):
     class Meta:

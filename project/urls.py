@@ -10,22 +10,16 @@ projects_list_info = {
     'template_object_name': "projects",
 }
 
-project_create_info = {
+project_create_update_info = {
     'model': Project,
     'post_save_redirect': '/projects',
+    'template_name': "project/project_create_update.html",
     'login_required':  True,
 }
 
 project_detail_info = {
     'queryset': Project.objects.all(),
     'template_name': "project/project_detail.html",
-    'template_object_name' : "project",
-}
-
-project_edit_info = {
-    'model': Project,
-    'template_name': "project/project_edit.html",
-    'post_save_redirect': "projects/",
     'template_object_name' : "project",
 }
 
@@ -56,12 +50,12 @@ task_create_info = {
 
 urlpatterns = patterns('',
                        (r'^$', list_detail.object_list, projects_list_info),
-                       (r'^create/$', create_update.create_object, project_create_info),
+                       (r'^create/$', create_update.create_object, project_create_update_info),
+                       (r'^(?P<object_id>\d+)/update/$', create_update.update_object, project_create_update_info),
                        (r'^(?P<object_id>\d+)/$', list_detail.object_detail, project_detail_info),
-                       (r'^(?P<object_id>\d+)/edit/$', create_update.update_object, project_edit_info),
                        (r'^tasks/$', list_detail.object_list, task_list_info), # a paginated view of all the tasks
                        (r'^(\d+)/tasks/$', list_tasks), # tasks belonging to a particular project
-                       (r'^tasks/(\d+)/edit/$', edit_task),
+                       (r'^tasks/(\d+)/update/$', edit_task),
                        (r'^tasks/(?P<object_id>\d+)/$', list_detail.object_detail, task_detail_info),
                        (r'^tasks/create/$', create_update.create_object, task_create_info))
 
