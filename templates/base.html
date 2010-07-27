@@ -27,7 +27,7 @@
   <span class="header_top_sec"><a href="/contact_us">Contact Us</a></span>
 <div id='user_login' style='clear:right'>
 {% if user.is_authenticated %}
-    Hola! {{ user.username }} <span class='rounded_button_left_img'></span><a class='rounded_button' href='/accounts/logout'>logout</a><span class='rounded_button_right_img'></span>
+    Hola! {{ user.username }} <span class='rounded_button_left_img'></span><a class='rounded_button' id='logout_button' href='/accounts/logout'>logout</a><span class='rounded_button_right_img'></span>
 {% else %}
 <form id='login_form' action='/accounts/login/' method='post'>{% csrf_token %}
 <input id='login_username' name='username'></input>
@@ -57,10 +57,10 @@
 
 <div id="footer" class="grid_12">
 </div>
-{% block javascript %}
-{% endblock %}
 <script type="text/javascript" src="/site_media/js/external/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/site_media/js/base.js"></script>
+{% block javascript %}
+{% endblock %}
 </div>
 </body>
 </html>
