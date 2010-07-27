@@ -1,13 +1,19 @@
 from django.conf.urls.defaults import *
 from django.views.generic import list_detail, create_update
 
-from project.models import Project, Task
+from project.models import Project, Task, ProjectForm, TaskForm
 from project.views import list_tasks, edit_task
 
-project_list_info = {
+projects_list_info = {
     'queryset': Project.objects.all(),
     'template_name': "project/project_list.html",
     'template_object_name': "projects",
+}
+
+project_create_info = {
+    'model': Project,
+    'post_save_redirect': '/projects',
+    'login_required':  True,
 }
 
 project_detail_info = {
@@ -49,7 +55,8 @@ task_create_info = {
 }
 
 urlpatterns = patterns('',
-                       (r'^$', list_detail.object_list, project_list_info),
+                       (r'^$', list_detail.object_list, projects_list_info),
+                       (r'^create/$', create_update.create_object, project_create_info),
                        (r'^(?P<object_id>\d+)/$', list_detail.object_detail, project_detail_info),
                        (r'^(?P<object_id>\d+)/edit/$', create_update.update_object, project_edit_info),
                        (r'^tasks/$', list_detail.object_list, task_list_info), # a paginated view of all the tasks

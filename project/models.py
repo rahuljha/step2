@@ -22,7 +22,7 @@ class Project(models.Model):
     owner = models.ForeignKey(User, related_name='projects_owner')
     created_by = models.ForeignKey(User, related_name='projects_created')
     members = models.ManyToManyField(User)
-    forum = models.ForeignKey(Forum, unique=True)
+    forum = models.ForeignKey(Forum, unique=True, null=True, blank=True)
     state = models.CharField(max_length=1, choices=project_state_choices, default='I')
     created_date = models.DateField(auto_now_add=True)
     required_skills = models.ManyToManyField(SkillSet, blank=True, null=True)
@@ -31,6 +31,13 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self):
+        forum = Forum(title="A forum for project " + self.name,
+                      description="a little nudge from us to get you all up and running...")
+        forum.save()
+        self.forum = forum
+        super(Project, self).save()
 
 
 class Task(models.Model):
@@ -55,3 +62,12 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class ProjectForm(ModelForm):
+    class Meta:
+        model = Project
+
+class TaskForm(ModelForm):
+    class Meta:
+        model = Task

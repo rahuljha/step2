@@ -24,9 +24,9 @@ class ProjectsHandler(BaseHandler):
         if request.content_type:
             data = request.data
 
-            forum = Forum(title="A forum for project " + data['name'],
-                          description="a forum for discussions on the project " + data['name'])
-            forum.save()
+            #forum = Forum(title="A forum for project " + data['name'],
+            #description="a forum for discussions on the project " + data['name'])
+            #forum.save()
 
             owner = None
             if not 'owner_id' in data:
@@ -37,8 +37,8 @@ class ProjectsHandler(BaseHandler):
             project = self.model(name=data['name'],
                                  owner=owner,
                                  created_by=request.user,
-                                 description=data['description'],
-                                 forum=forum)
+                                 description=data['description'],)
+                                 #forum=forum)
             project.save()
 
             for member in data['members']:
