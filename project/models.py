@@ -27,7 +27,7 @@ class Project(models.Model):
     created_date = models.DateField(auto_now_add=True)
     required_skills = models.ManyToManyField(SkillSet, blank=True, null=True)
     tags = TagField(blank=True, null=True)
-    #slug = models.SlugField()
+    slug = models.SlugField()
 
     def __unicode__(self):
         return self.name
@@ -53,7 +53,7 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(User, related_name='tasks_assigned')
     belongs_to_project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
-    #slug = models.SlugField()
+    slug = models.SlugField()
 
     def overdue_status(self):
         "Returns whether the task's due date has passed or not."
