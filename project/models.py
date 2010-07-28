@@ -1,6 +1,5 @@
 import datetime
 from django.db import models
-from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib import admin
 from south.modelsinspector import add_introspection_rules
@@ -55,7 +54,7 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(User, related_name='tasks_assigned')
     belongs_to_project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True, null=True)
 
     def overdue_status(self):
         "Returns whether the task's due date has passed or not."
@@ -65,14 +64,6 @@ class Task(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save():
+    def save(self):
         self.slug = slugify(self.title);
         super(Task, self).save()
-
-class ProjectForm(ModelForm):
-    class Meta:
-        model = Project
-
-class TaskForm(ModelForm):
-    class Meta:
-        model = Task
