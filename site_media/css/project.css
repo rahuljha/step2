@@ -33,7 +33,7 @@
     height: 100px;
 }
 
-a#add_task {
+a#add_task, a#visit_forum {
     font-weight: bold;
 }
 
@@ -44,4 +44,8 @@ a.task_ops {
 td.task_desc {
     padding: 10px;
     background-color: #ddd;
+}
+
+#project_forum {
+    margin-bottom: 10px;
 }

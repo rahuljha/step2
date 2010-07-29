@@ -16,6 +16,10 @@ Util = function() {
         task_desc_input = "<input type='hidden' class='task_desc' value='"+task_desc+"' />";
         return expand_link+edit_link+delete_link+task_id_input+task_title_input+task_desc_input;
     };
+
+    this.create_thread_link = function(thread_id, thread_title) {
+      return "<a href='/forums/thread/"+thread_id+"'>"+thread_title+"</a>";  
+    };
     
     this.dialog_ops = {
         edit: "edit",
@@ -113,8 +117,10 @@ Task_table_handler = function() {
 		                                         "aoColumns": tableColumns,
 		                                         "aaData": tableData,
                                                          "iDisplayLength": 5,
-                                                         "sPaginationType": "full_numbers"
-	                                             });	
+                                                         "sPaginationType": "full_numbers",
+                                                         "bFilter": false,
+                                                         "bLengthChange": false
+	                                             });
         _this.attach_ops_handlers();
 
        
@@ -137,6 +143,46 @@ Task_table_handler = function() {
 };
 
 var task_table_handler = new Task_table_handler();
+
+Forum_table_handler = function() {
+
+    this.thread_table = null;
+    var _this = this;
+
+    this.load_thread_table = function(threads) {
+
+        tableData = new Array();
+
+        for(thread in threads) {
+            threadData = threads[thread];
+            threadArray = new Array(
+                util.create_thread_link(threadData['id'], threadData['title']),
+                threadData['posts'],
+                threadData['views'],
+                threadData['latest_post_time']
+            );
+            tableData.push(threadArray);
+        }
+
+        tableColumns = [
+	    { "sTitle": "Title" },
+	    { "sTitle": "Posts", "sClass": "center"},
+	    { "sTitle": "Views", "sClass": "center" },
+            { "sTitle": "Last Post", "sClass": "center"}
+	];
+        
+        _this.thread_table = $('#thread_list').dataTable({
+		                                             "aoColumns": tableColumns,
+		                                             "aaData": tableData,
+                                                             "iDisplayLength": 5,
+                                                             "sPaginationType": "full_numbers",
+                                                             "bFilter": false,
+                                                             "bLengthChange": false
+	                                             });	
+    };
+};
+
+var forum_table_handler = new Forum_table_handler();
 
 
 init_dialogs = function() {
@@ -261,11 +307,20 @@ init_buttons = function() {
 $(document).ready(
     function() {
         $.ajax({
-                   url: "/api/projects/"+project_id+"/tasks",
+                   url: "/api/projects/"+project_id+"/tasks/",
 	           type: 'GET',
                    dataType: 'json',
                    timeout: 5000,
                    success: task_table_handler.load_task_table
+               });
+
+        $.ajax({
+                   url: "/api/forums/"+forum_id+"/threads/",
+	           type: 'GET',
+                   dataType: 'json',
+                   timeout: 5000,
+                   success: forum_table_handler.load_thread_table
+
                });
 
         init_dialogs();

@@ -170,3 +170,13 @@ input#login_username, input#login_password {
 a#login_button, a#logout_button {
     text-decoration: none;
 }
+
+#footer {
+    text-align: center;
+    padding: 10px 0;
+    color: #555;
+}
+
+#footer p{
+    margin-bottom: 5px;
+}

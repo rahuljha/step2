@@ -45,13 +45,16 @@
 <div class="clear"></div>
 <div id="project_forum" class="grid_12">
   <h2>Forum</h2>
+  <table class="display" id="thread_list"></table>
+  <a href="/forums/{{ project.forum.slug }}" id="visit_forum">Visit Forum</a>
 </div>
 <div class="clear"></div>
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript">
-  var project_id = {{ project.id }}
+  var project_id = {{ project.id }};
+  var forum_id = {{ project.forum.id }};
 </script>
 <script type="text/javascript" src="/site_media/js/external/jquery-ui-1.8.2.custom.min.js"></script>
 <script type="text/javascript" src="/site_media/js/external/json2.js"></script>
@@ -59,5 +62,6 @@
 <script type="text/javascript" src="/site_media/js/external/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/site_media/js/external/fullcalendar.min.js"></script>
 <script type="text/javascript" src="/site_media/js/project/project_detail.js"></script>
+<script type="text/javascript" src="/site_media/js/project/project_detail_forum.js"></script>
 </script>
 {% endblock %}
