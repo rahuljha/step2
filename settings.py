@@ -3,12 +3,12 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-WORKSPACE_DIR = '/Users/rdsr/work/src-code/step2' #change this accordingly
-
 # settings required for extending the user model
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 
-# django forum settings
+
+WORKSPACE_DIR = '/var/www-beta/step2'  #change this accordingly
+
 FORUM_BASE = '/forum'
 
 # django-tagging settings
@@ -21,9 +21,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'step2'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'step2'             # Not used with sqlite3.
-DATABASE_PASSWORD = 'step2'         # Not used with sqlite3.
+DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+DATABASE_USER = ''             # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -38,7 +38,7 @@ TIME_ZONE = 'India/Calcutta'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 1
+SITE_ID = 2
 
 LOGIN_URL = "/accounts/login"
 
@@ -74,7 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 )
 
 ROOT_URLCONF = 'step2.urls'
@@ -106,3 +106,5 @@ INSTALLED_APPS = (
 AUTHENTICATION_BACKENDS = (
     'step2.email_auth.EmailBackend',
  )
+
+ACCOUNT_ACTIVATION_DAYS = 7

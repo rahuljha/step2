@@ -234,7 +234,7 @@ class ForumHandler(BaseHandler):
 class ForumThreadsHandler(BaseHandler):
     model = Thread
     allowed_methods = ('GET', 'POST',)
-    fields = ('id', 'title', 'closed', 'posts', 'views',)
+    fields = ('id', 'title', 'closed', 'posts', 'views', 'latest_post_time')
 
     def read(self, request, id):
         return Thread.objects.filter(forum=id)
@@ -242,7 +242,7 @@ class ForumThreadsHandler(BaseHandler):
 
 class ThreadPostsHandler(BaseHandler):
     model = Post
-    allowed_methods = ('GET', 'POSt',)
+    allowed_methods = ('GET', 'POST',)
     fields = ('id', 'time', 'body_html', ('author', ('id', 'username')),)
 
     def read(self, request, id):
