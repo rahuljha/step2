@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 
 
-WORKSPACE_DIR = '/var/www-beta/step2'  #change this accordingly
+WORKSPACE_DIR = '/home/rahuljha/step2'  #change this accordingly
 
 FORUM_BASE = '/forum'
 
@@ -38,7 +38,7 @@ TIME_ZONE = 'India/Calcutta'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 2
+SITE_ID = 1
 
 LOGIN_URL = "/accounts/login"
 
@@ -100,6 +100,7 @@ INSTALLED_APPS = (
     'tagging',
     'registration',
     'api',
+    'notification',
 )
 
 #for using email addresses as usernames

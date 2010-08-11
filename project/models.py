@@ -7,6 +7,7 @@ from tagging.fields import TagField
 from forum.models import Forum
 from userprofile.models import SkillSet
 from django.template.defaultfilters import slugify
+from notification import models as notification
 
 add_introspection_rules = ([], ["tagging_autocomplete\.models\.TagAutocompleteField"])
 
@@ -66,4 +67,5 @@ class Task(models.Model):
 
     def save(self):
         self.slug = slugify(self.title);
+        notification.send([self.assigned_to, self.created_by], 'task_created',{'task_obj': self})
         super(Task, self).save()

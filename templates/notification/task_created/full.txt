@@ -1,0 +1,12 @@
+Hi,
+
+A new task was created for project {{ task_obj.belongs_to_project.name }}
+
+Title: {{ task_obj.title }}
+Description: {{ task_obj.description }}
+Date created: {{task_obj.created_date }}
+Date Due: {{ task_obj.due_date }}
+
+
+Thanks,
+Step2 Admin
