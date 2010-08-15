@@ -16,8 +16,9 @@ urlpatterns = patterns('',
                        (r'^projects/', include('project.urls')),
                        (r'^forums/', include('forum.urls')),
 		       (r'^accounts/', include('registration.backends.default.urls')),
+                       (r'^notices/', include('notification.urls')),
                        #static media for dev box, comment the next line on on production
-                       #(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + '/site_media/'}), 
+                       (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': WORKSPACE_DIR + '/site_media/'}), 
                        #REST interface                       
                        (r'^api/', include('api.urls')))
 
