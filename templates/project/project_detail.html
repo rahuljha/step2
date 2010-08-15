@@ -8,6 +8,14 @@
 {%endblock%}
 {% block nav_projects %} <a href="/projects" class="active">Projects</a> {% endblock %}
 {% block content %}
+
+{%load permissions %}
+{% ifhasperm "project_permission.edit_project" user project%}
+	<span class="rounded_button_left_img"></span><a href="/projects/1/update" id="logout_button" class="rounded_button">Edit</a><span class="rounded_button_right_img">
+	</span>
+{% else %}
+{% endifhasperm %}
+
 <div id="project_description">
 <h1>{{project.name|capfirst}}</h1>
 <p> {{project.description}}</p>
