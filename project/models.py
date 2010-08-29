@@ -31,7 +31,7 @@ class Project(models.Model):
     created_date = models.DateField(auto_now_add=True)
     required_skills = models.ManyToManyField(SkillSet, blank=True, null=True)
     tags = TagField(blank=True, null=True)
-    slug = models.SlugField(null=True, blank=True);
+    slug = models.SlugField(null=True, blank=True)
 
     def __unicode__(self):
         return self.name
