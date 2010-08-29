@@ -1,0 +1,12 @@
+Hi,
+
+You've just created a new project!
+
+Name: {{ project_obj.name }}
+Description: {{ project_obj.description }}
+
+Project link: http://step2.co.in/api/projects/{{ project_obj.id }}
+Follow the above linke to the project's  page
+
+Thanks,
+Step2 Admin

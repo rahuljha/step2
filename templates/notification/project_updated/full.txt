@@ -1,0 +1,6 @@
+Hi,
+
+The project " {{ project_obj.name }} "  was update by {{ updater.username }}
+
+Thanks,
+Step2 Admin

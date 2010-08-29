@@ -1,13 +1,16 @@
-import datetime
-from django.db import models
-from django.contrib.auth.models import User
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import post_save
+from django.http import HttpRequest
+from django.template.defaultfilters import slugify
+from forum.models import Forum
+from notification import models as notification
 from south.modelsinspector import add_introspection_rules
 from tagging.fields import TagField
-from forum.models import Forum
 from userprofile.models import SkillSet
-from django.template.defaultfilters import slugify
-from notification import models as notification
+
+import datetime
 
 add_introspection_rules = ([], ["tagging_autocomplete\.models\.TagAutocompleteField"])
 
@@ -35,11 +38,20 @@ class Project(models.Model):
 
     def save(self):
         forum = Forum(title="A forum for project " + self.name,
-                      description="a little nudge from us to get you all up and running...")
+                       description="Use this as a starting point for various discussions and Q&A")
         forum.save()
         self.forum = forum
         self.slug = slugify(self.name);
         super(Project, self).save()
+
+def project_onsave(sender, instance, created, **kwargs):
+    if created==True:
+        notification.send([instance.owner], 'project_created',{'project_obj': instance})
+    else:
+        notification.send([instance.owner], 'project_updated',{'project_obj': instance, 'updater': HttpRequest.user})
+
+### register signals
+post_save.connect(project_onsave, sender=Project)
 
 
 class Task(models.Model):
@@ -67,5 +79,14 @@ class Task(models.Model):
 
     def save(self):
         self.slug = slugify(self.title);
-        notification.send([self.assigned_to, self.created_by], 'task_created',{'task_obj': self})
         super(Task, self).save()
+
+
+def task_onsave(sender, instance, created, **kwargs):
+    if created==True:
+        notification.send([instance.assigned_to, instance.created_by], 'task_created',{'task_obj': instance})
+    else:
+        notification.send([instance.assigned_to, instance.created_by], 'task_updated',{'task_obj': instance, 'updater': HttpRequest.user})
+
+### register signal
+post_save.connect(task_onsave, sender=Task)

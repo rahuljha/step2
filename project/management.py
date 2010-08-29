@@ -6,8 +6,11 @@ if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification
 
     def create_notice_types(app, created_models, verbosity, **kwargs):
+        notification.create_notice_type("project_created", "Project Created", "A New Project was created")
+        notification.create_notice_type("project_updated", "Project Updated", "A Project was updated")
         notification.create_notice_type("task_created", "Task Created", "A new task was created")
-    
+        notification.create_notice_type("task_updated", "Task Updated", "A task was created")
+
     post_syncdb.connect(create_notice_types, sender=notification)
 
 else:

@@ -1,0 +1,6 @@
+Hi,
+
+the task " {{ task_obj.title }} " was updated by  {{ updater.username }}
+
+Thanks,
+Step2 Admin
