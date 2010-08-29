@@ -48,7 +48,7 @@ def project_onsave(sender, instance, created, **kwargs):
     if created==True:
         notification.send([instance.owner], 'project_created',{'project_obj': instance})
     else:
-        notification.send([instance.owner], 'project_updated',{'project_obj': instance, 'updater': HttpRequest.user})
+        notification.send([instance.owner], 'project_updated',{'project_obj': instance}) #, 'updater': HttpRequest.user})
 
 ### register signals
 post_save.connect(project_onsave, sender=Project)
@@ -86,7 +86,7 @@ def task_onsave(sender, instance, created, **kwargs):
     if created==True:
         notification.send([instance.assigned_to, instance.created_by], 'task_created',{'task_obj': instance})
     else:
-        notification.send([instance.assigned_to, instance.created_by], 'task_updated',{'task_obj': instance, 'updater': HttpRequest.user})
+        notification.send([instance.assigned_to, instance.created_by], 'task_updated',{'task_obj': instance}) #, 'updater': HttpRequest.user})
 
 ### register signal
 post_save.connect(task_onsave, sender=Task)
