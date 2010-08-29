@@ -11,8 +11,8 @@
 
 {%load permissions %}
 {% ifhasperm "project_permission.edit_project" user project%}
-	<span class="rounded_button_left_img"></span><a href="/projects/1/update" id="logout_button" class="rounded_button">Edit</a><span class="rounded_button_right_img">
-	</span>
+        <span class="rounded_button_left_img"></span><a href="/projects/{{project.id}}/update" id="logout_button" class="rounded_button">Edit</a><span class="rounded_button_right_img">
+        </span>
 {% else %}
 {% endifhasperm %}
 
